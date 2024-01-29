@@ -17,6 +17,12 @@
 
     {{-- icon --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <style>
+        span.select2.select2-container.select2-container--classic {
+            width: 100% !important;
+        }
+    </style>
 </head>
 
 <body>

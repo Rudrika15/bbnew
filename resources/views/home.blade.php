@@ -1,7 +1,5 @@
 @role('Admin')
-    <div id="admin">
-        @include('extra.master')
-    </div>
+    @include('extra.master')
 @endrole
 @role('Writer')
     {{-- @include('writer.layouts.app') --}}

@@ -17,7 +17,7 @@ class InquiryController extends Controller
         $details = CardsModels::where('user_id', '=', $authid)->first();
         $id = $details->id;
         $inq = Inquiry::where('card_id', '=', $id)->get();
-        return \view('feed.inquiry', \compact('inq'));
+        return \view('user.feedback.inquiry', \compact('inq'));
     }
 
     public function create()
@@ -46,25 +46,5 @@ class InquiryController extends Controller
         } catch (\Throwable $th) {
             throw $th;
         }
-    }
-
-    public function show(Inquiry $inquiry)
-    {
-        //
-    }
-
-    public function edit(Inquiry $inquiry)
-    {
-        //
-    }
-
-    public function update(Request $request, Inquiry $inquiry)
-    {
-        //
-    }
-
-    public function destroy(Inquiry $inquiry)
-    {
-        //
     }
 }

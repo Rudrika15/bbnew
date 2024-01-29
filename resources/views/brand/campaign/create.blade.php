@@ -60,7 +60,7 @@
                                             </div>
                                             <div class="col-md-5">
                                                 <label for="image"></label>
-                                                <img src="{{ url('asset/img/default.jpg') }}" alt="{{ __('main image') }}" id="img1" style='min-height:100px;min-width:150px;max-height:100px;max-width:150px'>
+                                                <img src="{{ url('images/default.jpg') }}" alt="{{ __('main image') }}" id="img1" style='min-height:100px;min-width:150px;max-height:100px;max-width:150px'>
                                             </div>
                                         </div>
                                     </div>

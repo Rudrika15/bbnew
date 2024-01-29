@@ -554,7 +554,7 @@
                                         <img src="{{ url('QRcodes') }}/{{ $qr->code }}" class="img-thumbnail" style="width:100px;height:100px">
                                         <br>
                                         <p><strong class="">Number</strong>: {{ $qr->number }}</p>
-                                        <a class="fs-5" onclick="return confirm('Are you sure?')" href="{{ Route('qr.delete') }}/{{ $qr->id }}"><i class="fa fa-trash ico text-danger text-center"></i></a>
+                                        <a class="" onclick="return confirm('Are you sure?')" href="{{ Route('qr.delete') }}/{{ $qr->id }}"><i class="fa fa-trash ico text-danger text-center"></i></a>
                                     </div>
                                 @endforeach
                             </div>
@@ -590,7 +590,7 @@
                                     <img src="{{ url('slider') }}/{{ $slider->file }}" class="img-thumbnail" style="width:100px;height:100px">
                                     <br>
 
-                                    <a class="fs-5" onclick="return confirm('Are you sure?')" href="{{ route('slider.delete') }}/{{ $slider->id }}"><i class="fa fa-trash ico text-danger text-center"></i></a>
+                                    <a class="" onclick="return confirm('Are you sure?')" href="{{ route('slider.delete') }}/{{ $slider->id }}"><i class="bi bi-trash ico text-danger text-center"></i></a>
                                 </div>
                             @endforeach
                         </div>
@@ -620,7 +620,7 @@
                         <div class="row">
                             @foreach ($bro as $bro)
                                 <div class="col-md-3">
-                                    <h5><a href="{{ url('brofile/' . $bro->file) }}" class="text-primary" target="_blank"> Brochure</a> <a class="fs-5" onclick="return confirm('Are you sure?')" href="{{ Route('bro.delete') }}/{{ $bro->id }}"><i class="fa fa-trash ico text-danger text-center"></i></a></h5>
+                                    <h5><a href="{{ url('brofile/' . $bro->file) }}" class="text-primary" target="_blank"> Brochure</a> <a class="" onclick="return confirm('Are you sure?')" href="{{ Route('bro.delete') }}/{{ $bro->id }}"><i class="fa fa-trash ico text-danger text-center"></i></a></h5>
                                 </div>
                             @endforeach
                         </div>
@@ -631,7 +631,7 @@
     </div>
 @endsection
 
-{{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> --}}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
     $(document).ready(function() {
         $('#mediatype').on('change', function() {
@@ -700,6 +700,7 @@
 @role('Influencer')
     <script>
         const category = {!! $influencer->categoryId !!};
+        console.log('influencer category portion', category);
         console.log(category);
 
         document.getElementById('influencerCategory').innerHTML = category.join(', ');

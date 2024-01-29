@@ -9,10 +9,12 @@ use App\Http\Controllers\user\FeedbackController;
 use App\Http\Controllers\user\InquiryController;
 use App\Http\Controllers\user\LinkController;
 use App\Http\Controllers\user\PaymentController;
+use App\Http\Controllers\user\PortfolioController;
 use App\Http\Controllers\user\QrcodeController;
 use App\Http\Controllers\user\ReferController;
 use App\Http\Controllers\user\ServiceController;
 use App\Http\Controllers\user\SliderController;
+use App\Http\Controllers\user\UserTemplateMasterController;
 use App\Http\Controllers\writer\WriterController;
 use App\Http\Controllers\writer\WriterdController;
 
@@ -78,3 +80,25 @@ Route::get('serviceDetails/delete/{id?}', [ServiceController::class, 'destroy'])
 
 //  REFER CODE
 Route::get('refer/index', [ReferController::class, 'index'])->name('refer.index');
+
+
+// portfolio
+
+Route::get('portfolio', [PortfolioController::class, 'index'])->name('portfolio.index');
+Route::get('portfolio/create', [PortfolioController::class, 'create'])->name('portfolio.create');
+Route::post('portfolio/store', [PortfolioController::class, 'store'])->name('portfolio.store');
+Route::get('portfolio/edit/{id?}', [PortfolioController::class, 'edit'])->name('portfolio.edit');
+Route::post('portfolio/update', [PortfolioController::class, 'update'])->name('portfolio.update');
+Route::get('portfolio/delete/{id?}', [PortfolioController::class, 'delete'])->name('portfolio.delete');
+
+Route::post('image-store', [PortfolioController::class, 'storeimage'])->name('image.store');
+
+
+// User Template Master
+
+Route::get('userTemplate/index', [UserTemplateMasterController::class, 'index'])->name('userTemplate.index');
+Route::get('userTemplate/create', [UserTemplateMasterController::class, 'create'])->name('userTemplate.create');
+Route::post('userTemplate/store', [UserTemplateMasterController::class, 'store'])->name('userTemplate.store');
+Route::get('userTemplate/edit/{id}', [UserTemplateMasterController::class, 'edit'])->name('userTemplate.edit');
+Route::post('userTemplate/update', [UserTemplateMasterController::class, 'update'])->name('userTemplate.update');
+Route::get('userTemplate/delete/{id?}', [UserTemplateMasterController::class, 'destroy'])->name('userTemplate.delete');

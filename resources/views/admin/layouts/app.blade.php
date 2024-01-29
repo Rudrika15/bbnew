@@ -18,25 +18,25 @@
 
     {{-- content --}}
     <span class=" fw-bold text-center text-uppercase sidebar-heading-small"> Content </span>
-    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#">
+    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{{ route('admincategory.index') }}">
         <i class="bi bi-tag-fill"></i> Category
     </a>
-    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#">
+    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{{ route('adminmedia.index') }}">
         <i class="bi bi-film"></i> Media
     </a>
-    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#">
+    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{{ route('admindownload.index') }}">
         <i class="bi bi-download"></i> Downloads
     </a>
-    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#">
+    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{{ route('adminslogan.adminslogan') }}">
         <i class="bi bi-chat-heart-fill"></i> Slogan
     </a>
-    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#">
+    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{{ route('admindesign.admindesign') }}">
         <i class="bi bi-image-alt"></i> Design
     </a>
 
     {{-- master --}}
     <span class=" fw-bold text-center text-uppercase sidebar-heading-small"> Master </span>
-    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#">
+    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{{ route('admintemplatemaster.index') }}">
         <i class="bi bi-file-earmark-image"></i> Template
     </a>
     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#">
