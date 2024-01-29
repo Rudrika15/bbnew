@@ -1,10 +1,13 @@
 <?php
 
 use App\Http\Controllers\admin\CategoryController;
+use App\Http\Controllers\admin\CityController;
 use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\admin\MediaController;
 use App\Http\Controllers\admin\PricingController;
+use App\Http\Controllers\admin\ProductController;
 use App\Http\Controllers\admin\RoleController as AdminRoleController;
+use App\Http\Controllers\admin\StateController;
 use App\Http\Controllers\admin\TemplateDetailController;
 use App\Http\Controllers\admin\TemplatemasterController;
 use App\Http\Controllers\admin\UserController;
@@ -99,3 +102,40 @@ Route::post('adminTemplateDetail/store', [TemplateDetailController::class, 'stor
 Route::get('adminTemplateDetail/edit/{id}', [TemplateDetailController::class, 'edit'])->name('adminTemplateDetail.edit');
 Route::post('adminTemplateDetail/update', [TemplateDetailController::class, 'update'])->name('adminTemplateDetail.update');
 Route::get('adminTemplateDetail/delete/{id?}', [TemplateDetailController::class, 'destroy'])->name('adminTemplateDetail.delete');
+
+
+// Product
+Route::get('product/index', [ProductController::class, 'index'])->name('product.index');
+Route::get('product/create', [ProductController::class, 'create'])->name('product.create');
+Route::post('product/store', [ProductController::class, 'store'])->name('product.store');
+Route::get('product/edit/{id?}', [ProductController::class, 'edit'])->name('product.edit');
+Route::post('product/update', [ProductController::class, 'update'])->name('product.update');
+Route::get('product/delete/{id?}', [ProductController::class, 'destory'])->name('product.delete');
+
+
+
+// adminstate details
+Route::get('state/index', [StateController::class, 'index'])->name('state.index');
+Route::get('state/create', [StateController::class, 'create'])->name('state.create');
+Route::post('state/store', [StateController::class, 'store'])->name('state.store');
+Route::get('state/edit/{id?}', [StateController::class, 'edit'])->name(('state.edit'));
+Route::post('state/update', [StateController::class, 'update'])->name('state.update');
+Route::get('state/delete/{id?}', [StateController::class, 'delete'])->name('state.delete');
+
+
+// admincity details
+Route::get('city/index', [CityController::class, 'index'])->name('city.index');
+Route::get('city/create', [CityController::class, 'create'])->name('city.create');
+Route::post('city/store', [CityController::class, 'store'])->name('city.store');
+Route::get('city/edit/{id?}', [CityController::class, 'edit'])->name('city.edit');
+Route::post('city/update/{id?}', [CityController::class, 'update'])->name('city.update');
+Route::get('city/delete/{id?}', [CityController::class, 'delete'])->name('city.delete');
+
+
+// brand Packages activity
+Route::get('admin/brand/package/activity/index', [ActivityController::class, 'index'])->name('admin.brand.activity.index');
+Route::get('admin/brand/package/activity/create', [ActivityController::class, 'create'])->name('admin.brand.activity.create');
+Route::post('admin/brand/package/activity/store', [ActivityController::class, 'store'])->name('admin.brand.activity.store');
+Route::get('admin/brand/package/activity/edit/{id?}', [ActivityController::class, 'edit'])->name('admin.brand.activity.edit');
+Route::post('admin/brand/package/activity/update', [ActivityController::class, 'update'])->name('admin.brand.activity.update');
+Route::get('admin/brand/package/activity/delete/{id?}', [ActivityController::class, 'delete'])->name('admin.brand.activity.delete');
