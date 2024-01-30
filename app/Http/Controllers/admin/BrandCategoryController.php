@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\brand;
+namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\BrandCategory;
@@ -11,11 +11,11 @@ class BrandCategoryController extends Controller
     public function index()
     {
         $brandCategory = BrandCategory::all();
-        return view('brand.category.index', compact('brandCategory'));
+        return view('admin.brandCategory.index', compact('brandCategory'));
     }
     public function create()
     {
-        return view('brand.category.create');
+        return view('admin.brandCategory.create');
     }
     public function store(Request $request)
     {
@@ -25,12 +25,12 @@ class BrandCategoryController extends Controller
         $brandCategory = new BrandCategory();
         $brandCategory->categoryName = $request->categoryName;
         $brandCategory->save();
-        return redirect()->route('brand.category.index')->with('success', 'Brand Category Created Successfully');
+        return redirect()->route('admin.brandCategory.index')->with('success', 'Brand Category Created Successfully');
     }
     public function edit($id)
     {
         $brandCategory = BrandCategory::find($id);
-        return view('brand.category.edit', compact('brandCategory'));
+        return view('admin.brandCategory.edit', compact('brandCategory'));
     }
     public function update(Request $request)
     {
@@ -40,12 +40,12 @@ class BrandCategoryController extends Controller
         $brandCategory = BrandCategory::find($request->brandCategoryId);
         $brandCategory->categoryName = $request->categoryName;
         $brandCategory->save();
-        return redirect()->route('brand.category.index')->with('success', 'Brand Category Updated Successfully');
+        return redirect()->route('admin.brandCategory.index')->with('success', 'Brand Category Updated Successfully');
     }
     public function delete($id)
     {
         $brandCategory = BrandCategory::find($id);
         $brandCategory->delete();
-        return redirect()->route('brand.category.index')->with('success', 'Brand Category Deleted Successfully');
+        return redirect()->route('admin.brandCategory.index')->with('success', 'Brand Category Deleted Successfully');
     }
 }

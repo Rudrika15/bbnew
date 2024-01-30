@@ -71,8 +71,8 @@ class MediaController extends Controller
             return view("admin.media.index", compact('media', 'category'));
         } catch (\Throwable $th) {
             throw $th;
-            // return view('servererror');
-            // return view("adminCategory.index", compact('category'));
+            // 
+
         }
     }
 
@@ -92,9 +92,7 @@ class MediaController extends Controller
             $category = Category::select('id', 'name')->get();
             return view("admin.media.create", \compact('category', 'categoryId'));
         } catch (\Throwable $th) {
-            //throw $th;    
-            return view('servererror');
-            // return view("adminCategory.index", compact('category'));
+            throw $th;
         }
     }
 
@@ -147,8 +145,8 @@ class MediaController extends Controller
             return redirect()->back()->with('success', 'Media inserted successfully');
         } catch (\Throwable $th) {
             // throw $th;
-            return view('servererror');
-            // return view("adminCategory.index", compact('category'));
+
+
         }
     }
 
@@ -163,9 +161,7 @@ class MediaController extends Controller
             $category = Category::all();
             return view('admin.media.edit', compact('media', 'category'));
         } catch (\Throwable $th) {
-            //throw $th;    
-            return view('servererror');
-            // return view("adminCategory.index", compact('category'));
+            throw $th;
         }
     }
     public function update(Request $request)
@@ -212,8 +208,8 @@ class MediaController extends Controller
             return redirect('adminMedia/index');
         } catch (\Throwable $th) {
             // throw $th;
-            return view('servererror');
-            // return view("adminCategory.index", compact('category'));
+
+
         }
     }
 
@@ -224,9 +220,7 @@ class MediaController extends Controller
             $media->delete();
             return redirect()->back();
         } catch (\Throwable $th) {
-            //throw $th;    
-            return view('servererror');
-            // return view("adminCategory.index", compact('category'));
+            throw $th;
         }
     }
 
@@ -291,8 +285,8 @@ class MediaController extends Controller
             return view('admin.media.downloads', \compact('mymedia', 'category'));
         } catch (\Throwable $th) {
             throw $th;
-            // return view('servererror');
-            // return view("adminCategory.index", compact('category'));
+            // 
+
         }
     }
 }

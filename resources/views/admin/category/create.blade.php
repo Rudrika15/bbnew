@@ -35,12 +35,12 @@
                                     </div>
                                     <div class="col-md-4">
                                         <label for="image"></label>
-                                        <img src="{{ url('asset/img/default.jpg') }}" alt="{{ __('main image') }}" id="img1" style='min-height:100px;min-width:100px;max-height:100px;max-width:100px'>
+                                        <img src="{{ url('images/default.jpg') }}" alt="{{ __('main image') }}" id="img1" style='min-height:100px;min-width:100px;max-height:100px;max-width:100px'>
                                     </div>
                                 </div>
                                 <!-- <div class="box-content" style="width: 200px;">
-                                                                                        <input type="file" id="input-file-now-custom-1" class="dropify" name="iconPath" data-default-file="http://placehold.it/1000x667" />
-                                                                                    </div> -->
+                                                                                                    <input type="file" id="input-file-now-custom-1" class="dropify" name="iconPath" data-default-file="http://placehold.it/1000x667" />
+                                                                                                </div> -->
                             </div>
 
 
@@ -80,7 +80,7 @@
                                 <input type="number" class="form-control" id="sequence" value="{{ old('sequence') }}" name="sequence">
                             </div>
                             <br>
-                            <button type="submit" class="btn btnback btn-sm" style="background-color: #002E6E; color:white;">Submit</button>
+                            <button type="submit" class="btn btn-success btn-sm">Submit</button>
                         </form>
 
 

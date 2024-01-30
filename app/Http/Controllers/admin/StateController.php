@@ -44,7 +44,7 @@ class StateController extends Controller
             $state->sname = $request->statename;
             $state->is_delete = 'Active';
             $state->save();
-            return redirect('adminstate/index');
+            return redirect('state/index');
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -68,7 +68,7 @@ class StateController extends Controller
             $state = State::find($id);
             $state->sname = $request->statename;
             $state->save();
-            return redirect('adminstate/index');
+            return redirect('state/index');
         } catch (\Throwable $th) {
             throw $th;
         }

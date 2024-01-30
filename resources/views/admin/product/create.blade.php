@@ -38,19 +38,16 @@
                                 <label for="exampleInputPassword1" class="form-label">photo</label>
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <input type="file" accept='image/*' onchange="readURL(this,'#img1')"
-                                            class="form-control" id="photo" name="photo">
+                                        <input type="file" accept='image/*' onchange="readURL(this,'#img1')" class="form-control" id="photo" name="photo">
                                     </div>
                                     <div class="col-md-4">
                                         <label for="image"></label>
-                                        <img src="{{ url('asset/img/default.jpg') }}" alt="{{ __('main image') }}"
-                                            id="img1"
-                                            style='min-height:100px;min-width:100px;max-height:100px;max-width:100px'>
+                                        <img src="{{ url('images/default.jpg') }}" alt="{{ __('main image') }}" id="img1" style='min-height:100px;min-width:100px;max-height:100px;max-width:100px'>
                                     </div>
                                 </div>
                                 <!-- <div class="box-content" style="width: 200px;">
-                                                <input type="file" id="input-file-now-custom-1" class="dropify" name="iconPath" data-default-file="http://placehold.it/1000x667" />
-                                            </div> -->
+                                                    <input type="file" id="input-file-now-custom-1" class="dropify" name="iconPath" data-default-file="http://placehold.it/1000x667" />
+                                                </div> -->
                             </div>
 
                             <div class="text-center my-3">

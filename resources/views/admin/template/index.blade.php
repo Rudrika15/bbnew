@@ -33,7 +33,7 @@
 
                                         <td><a class="btn btn-primary btn-sm" href="{{ route('admintemplatemaster.edit', $template->id) }}">Edit</a>
                                             <a class="btn btn-danger btn-sm" href="{{ route('admintemplatemaster.delete', $template->id) }}">Delete</a>
-                                            <a href="{{ route('adminTemplateDetail.index') }}/{{ $template->id }}" class="btn btnback btn-sm" style="background-color: #002E6E; color:white;">Template Detail</a>
+                                            <a href="{{ route('adminTemplateDetail.index') }}/{{ $template->id }}" class="btn btn-success btn-sm">Template Detail</a>
                                         </td>
                                     </tr>
                                 @endforeach

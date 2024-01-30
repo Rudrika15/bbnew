@@ -82,7 +82,7 @@
                                             </div>
                                             <div class="col-md-5">
                                                 <label for="image"></label>
-                                                <img src="{{ url('asset/img/default.jpg') }}" alt="{{ __('main image') }}" id="img1" style='min-height:100px;min-width:150px;max-height:100px;max-width:150px'>
+                                                <img src="{{ url('images/default.jpg') }}" alt="{{ __('main image') }}" id="img1" style='min-height:100px;min-width:150px;max-height:100px;max-width:150px'>
                                             </div>
                                         </div>
 
@@ -101,7 +101,7 @@
                                             </div>
                                             <div class="col-md-5">
                                                 <label for="image"></label>
-                                                <img src="{{ url('asset/img/default.jpg') }}" alt="{{ __('main image') }}" id="img" style='min-height:100px;min-width:150px;max-height:100px;max-width:150px'>
+                                                <img src="{{ url('images/default.jpg') }}" alt="{{ __('main image') }}" id="img" style='min-height:100px;min-width:150px;max-height:100px;max-width:150px'>
                                             </div>
                                         </div>
                                         <div id="warn2" style="display: none;">
@@ -116,7 +116,7 @@
                                 <label class="form-check-label" for="isPremium">IS Premium</label>
                             </div>
 
-                            <button type="submit" class="btn btnback btn-sm" style="background-color: #002E6E; color:white;">Submit</button>
+                            <button type="submit" class="btn btn-success btn-sm">Submit</button>
                         </form>
 
                     </div>

@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\influencer\CategoryInfluencerController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\influencer\DashboardController;
 use App\Http\Controllers\influencer\InfluencerController;
@@ -11,17 +10,6 @@ use App\Http\Controllers\influencer\InfluencerStepController;
 Route::get('influencer/dashboard', [DashboardController::class, 'dashboard'])->name('influencer.dashboard');
 
 
-// influencer category
-Route::get('influencer/category/index', [CategoryInfluencerController::class, 'index'])->name('influencer.index');
-Route::get('influencer/list', [CategoryInfluencerController::class, 'list'])->name('influencer.list');
-Route::get('influencer/singleView/{id?}', [CategoryInfluencerController::class, 'singleView'])->name('influencer.singleView');
-Route::get('influencer/statusEdit/{id?}', [CategoryInfluencerController::class, 'statusEdit'])->name('influencer.statusEdit');
-Route::post('influencer/statusEditCode', [CategoryInfluencerController::class, 'statusEditCode'])->name('influencer.statusEditCode');
-Route::get('influencer/category/create', [CategoryInfluencerController::class, 'create'])->name('influencer.create');
-Route::post('influencer/category/store', [CategoryInfluencerController::class, 'store'])->name('influencer.store');
-Route::get('influencer/category/edit/{id?}', [CategoryInfluencerController::class, 'edit'])->name('influencer.edit');
-Route::post('influencer/category/update', [CategoryInfluencerController::class, 'update'])->name('influencer.update');
-Route::get('influencer/category/delete/{id?}', [CategoryInfluencerController::class, 'destroy'])->name('influencer.delete');
 
 // influencer profile
 Route::get('influencer/profile', [InfluencerController::class, 'influencerProfile'])->name('influencer.profile');

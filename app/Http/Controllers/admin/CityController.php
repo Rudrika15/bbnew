@@ -46,7 +46,7 @@ class CityController extends Controller
             $city->statid = $request->statename;
             $city->is_delete = 'Active';
             $city->save();
-            return redirect('admincity/index');
+            return redirect('city/index');
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -72,7 +72,7 @@ class CityController extends Controller
             $city->city = $request->cityname;
             $city->statid = $request->statename;
             $city->save();
-            return redirect('admincity/index');
+            return redirect('city/index');
         } catch (\Throwable $th) {
             throw $th;
         }

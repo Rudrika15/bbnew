@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\influencer;
+namespace App\Http\Controllers\admin;
 
 use App\Models\CategoryInfluencer;
 use App\Http\Controllers\Controller;
@@ -15,7 +15,7 @@ class CategoryInfluencerController extends Controller
         try {
             $influencerCategory = CategoryInfluencer::orderBy('id', 'DESC')->get();
 
-            return view('influencer.category.index', \compact('influencerCategory'));
+            return view('admin.influencerCategory.index', \compact('influencerCategory'));
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -24,7 +24,7 @@ class CategoryInfluencerController extends Controller
     public function create()
     {
         try {
-            return view('influencer.category.create');
+            return view('admin.influencerCategory.create');
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -58,7 +58,7 @@ class CategoryInfluencerController extends Controller
                 $q->where('name', 'Influencer');
             }
         )->whereHas('influencer')->get();
-        return view('influencer.list', \compact('influencer'));
+        return view('influencer.influencer.list', \compact('influencer'));
     }
     public function singleView($id)
     {
@@ -67,7 +67,7 @@ class CategoryInfluencerController extends Controller
             ->where('userId', '=', $id)
             ->orderBy('id', 'DESC')
             ->first();
-        return view('influencer.listView', \compact('profile'));
+        return view('influencer.influencer.listView', \compact('profile'));
     }
 
     public function statusEdit($id)
@@ -75,7 +75,7 @@ class CategoryInfluencerController extends Controller
         $profile = InfluencerProfile::with('profile')
             ->where('userId', '=', $id)
             ->first();
-        return view('influencer.statusUpdate', \compact('profile'));
+        return view('influencer.influencer.statusUpdate', \compact('profile'));
     }
     public function statusEditCode(Request $request)
     {
@@ -93,7 +93,7 @@ class CategoryInfluencerController extends Controller
     {
         try {
             $category = CategoryInfluencer::find($id);
-            return view('influencer.category.edit', \compact('category'));
+            return view('admin.influencerCategory.edit', \compact('category'));
         } catch (\Throwable $th) {
             throw $th;
         }

@@ -19,7 +19,7 @@ class BannerController extends Controller
     {
         try {
             $banner = Banner::orderBy('id', 'DESC')->get();
-            return view('banner.index', \compact('banner'));
+            return view('admin.banner.index', \compact('banner'));
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -27,7 +27,7 @@ class BannerController extends Controller
     function create()
     {
         try {
-            return view('banner.create');
+            return view('admin.banner.create');
         } catch (\Throwable $th) {
             throw $th;
         }

@@ -1,7 +1,5 @@
 <?php
 
-use App\Http\Controllers\brand\ActivityController;
-use App\Http\Controllers\brand\BrandCategoryController;
 use App\Http\Controllers\brand\BrandPackageController;
 use App\Http\Controllers\brand\BrandPackageDetailController;
 use App\Http\Controllers\brand\CampaignController;
@@ -44,22 +42,6 @@ Route::post('brand/campaign/step/store', [CampaignStepController::class, 'store'
 Route::get('brand/campaign/step/edit/{id?}', [CampaignStepController::class, 'edit'])->name('brand.campaign.step.edit');
 Route::post('brand/campaign/step/update', [CampaignStepController::class, 'update'])->name('brand.campaign.step.update');
 Route::get('brand/campaign/step/delete/{id?}', [CampaignStepController::class, 'delete'])->name('brand.campaign.step.delete');
-
-// Brand Category
-Route::get('brand/category/index', [BrandCategoryController::class, 'index'])->name('brand.category.index');
-Route::get('brand/category/create', [BrandCategoryController::class, 'create'])->name('brand.category.create');
-Route::post('brand/category/store', [BrandCategoryController::class, 'store'])->name('brand.category.store');
-Route::get('brand/category/edit/{id?}', [BrandCategoryController::class, 'edit'])->name('brand.category.edit');
-Route::post('brand/category/update', [BrandCategoryController::class, 'update'])->name('brand.category.update');
-Route::get('brand/category/delete/{id?}', [BrandCategoryController::class, 'delete'])->name('brand.category.delete');
-
-// brand Packages activity
-Route::get('admin/brand/package/activity/index', [ActivityController::class, 'index'])->name('admin.brand.activity.index');
-Route::get('admin/brand/package/activity/create', [ActivityController::class, 'create'])->name('admin.brand.activity.create');
-Route::post('admin/brand/package/activity/store', [ActivityController::class, 'store'])->name('admin.brand.activity.store');
-Route::get('admin/brand/package/activity/edit/{id?}', [ActivityController::class, 'edit'])->name('admin.brand.activity.edit');
-Route::post('admin/brand/package/activity/update', [ActivityController::class, 'update'])->name('admin.brand.activity.update');
-Route::get('admin/brand/package/activity/delete/{id?}', [ActivityController::class, 'delete'])->name('admin.brand.activity.delete');
 
 // brand Packages
 Route::get('admin/brand/package/index', [BrandPackageController::class, 'index'])->name('admin.brand.package.index');

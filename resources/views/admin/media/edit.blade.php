@@ -125,7 +125,7 @@
                                     <label class="form-check-label" for="isPremium">IS Premium</label>
                                 </div>
                             @endif
-                            <button type="submit" class="btn btn-success btn-sm" style="background-color: #002E6E; color:white;">Submit</button>
+                            <button type="submit" class="btn btn-success btn-sm">Submit</button>
                         </form>
 
 

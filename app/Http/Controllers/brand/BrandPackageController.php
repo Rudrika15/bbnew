@@ -11,12 +11,12 @@ class BrandPackageController extends Controller
     public function index()
     {
         $brandPackage = BrandPackage::all();
-        return view('adminBrandPackage.index', \compact('brandPackage'));
+        return view('admin.brandPackage.index', \compact('brandPackage'));
     }
 
     public function create()
     {
-        return view('adminBrandPackage.create');
+        return view('admin.brandPackage.create');
     }
 
     public function store(Request $request)
@@ -43,7 +43,7 @@ class BrandPackageController extends Controller
     public function edit($id)
     {
         $brandPackage = BrandPackage::find($id);
-        return view('adminBrandPackage.edit', compact('brandPackage'));
+        return view('admin.brandPackage.edit', compact('brandPackage'));
     }
 
     public function update(Request $request)

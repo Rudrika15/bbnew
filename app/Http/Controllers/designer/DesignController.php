@@ -483,7 +483,7 @@ class DesignController extends Controller
                 $q->where('name', 'Designer');
             }
         )->with('designer')->get();
-        return view('designer.writerDesignerReport', \compact('writer', 'designer'));
+        return view('admin.report.writerDesignerReport', \compact('writer', 'designer'));
     }
 
     function writerReport($id)
@@ -507,7 +507,7 @@ class DesignController extends Controller
             ->where('status', '=', "Pending")
             ->count();
 
-        return view('designer.writerReport', \compact('data', 'totalSlogans', 'approvedSlogans', 'rejectedSlogans', 'pendingSlogans'));
+        return view('admin.report.writerReport', \compact('data', 'totalSlogans', 'approvedSlogans', 'rejectedSlogans', 'pendingSlogans'));
     }
     function designerReport($id)
     {
@@ -530,6 +530,6 @@ class DesignController extends Controller
             ->where('status', '=', "Pending")
             ->count();
 
-        return view('designer.designerReport', \compact('data', 'totalDesigns', 'approvedDesigns', 'rejectedDesigns', 'pendingDesigns'));
+        return view('admin.report.designerReport', \compact('data', 'totalDesigns', 'approvedDesigns', 'rejectedDesigns', 'pendingDesigns'));
     }
 }

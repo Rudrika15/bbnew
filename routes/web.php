@@ -26,6 +26,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::prefix('/')->group(__DIR__ . '/designer/designerRoute.php');
     Route::prefix('/')->group(__DIR__ . '/brand/brandRoute.php');
     Route::prefix('/')->group(__DIR__ . '/influencer/influencerRoute.php');
+    Route::prefix('/')->group(__DIR__ . '/reseller/resellerRoute.php');
 
     Route::get('/fetch-layout', [App\Http\Controllers\HomepageController::class, 'fetchLayout'])->name('fetch-layout');
 });

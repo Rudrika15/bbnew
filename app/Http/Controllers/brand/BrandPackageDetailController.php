@@ -14,7 +14,7 @@ class BrandPackageDetailController extends Controller
     {
         $activity = Activity::all();
         $packageDetail = BrandPackageDetail::where('brandPackageId', $id)->with('activity')->get();
-        return view('adminBrandPackage.brandPackageDetail.index', \compact('packageDetail', 'activity'));
+        return view('admin.brandPackage.brandPackageDetail.index', \compact('packageDetail', 'activity'));
     }
 
     public function pricingView()
