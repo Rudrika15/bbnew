@@ -18,7 +18,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        <form action="{{ route('type.update') }}" enctype="multipart/form-data" class="was-validated" method="post">
+                        <form action="{{ route('type.update') }}" enctype="multipart/form-data" method="post">
                             @csrf
                             <input type="hidden" name="typeId" value="{{ $type->id }}">
                             <div class="mb-3">
@@ -26,7 +26,7 @@
                                 <input type="text" class="form-control" value="{{ $type->title }}" id="title" name="title">
                             </div>
                             <br>
-                            <button type="submit" class="btn btnback btn-sm" style="background-color: #002E6E; color:white;">Submit</button>
+                            <button type="submit" class="btn btn-success btn-sm">Submit</button>
                         </form>
                     </div>
 

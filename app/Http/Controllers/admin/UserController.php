@@ -14,6 +14,7 @@ use DB;
 use Hash;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
+use League\Csv\Writer;
 
 use function Ramsey\Uuid\v1;
 
@@ -397,8 +398,8 @@ class UserController extends Controller
             }
         } catch (\Throwable $th) {
             throw $th;
-            // return view('servererror');
-            // return view("adminCategory.index", compact('category'));
+            // 
+
         }
     }
 
@@ -415,5 +416,26 @@ class UserController extends Controller
 
         // Redirect back to the previous page (or any other response)
         return back()->with('success', 'User status updated successfully.');
+    }
+
+    public function export()
+    {
+        $users = User::all(); // Assuming User is your model for users
+
+        // You can format the data as CSV, JSON, or any other format here
+        // For example, to export as CSV:
+        $csv = Writer::createFromString('');
+        $csv->insertOne(['Name', 'Email', 'MobileNumber', 'PackageType']);
+
+        foreach ($users as $user) {
+            $csv->insertOne([$user->name, $user->email, $user->mobileno, $user->package]);
+        }
+
+        $filename = 'users.csv';
+
+        return response($csv, 200, [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => "attachment; filename=\"$filename\"",
+        ]);
     }
 }

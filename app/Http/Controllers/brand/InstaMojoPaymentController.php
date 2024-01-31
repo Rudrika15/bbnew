@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\brand;
 
 use App\Http\Controllers\Controller;
 use App\Models\BrandPackage;
@@ -45,6 +45,7 @@ class InstaMojoPaymentController extends Controller
             curl_close($ch);
 
             $response = json_decode($response, true);
+            // return $response;
 
             if ($response['success'] == 1) {
                 $payment_request = $response['payment_request'];

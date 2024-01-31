@@ -94,6 +94,13 @@
                         window.location.href = '/influencer/dashboard';
                     }
                 }
+            } else if (selectedRole === 'Reseller') {
+                layoutContainer.innerHTML = this.responseText;
+                if (currentUrl !== base_url + "/reseller/dashboard") {
+                    if (count == 1) {
+                        window.location.href = '/reseller/dashboard';
+                    }
+                }
 
             } else {
                 layoutContainer.innerHTML = this.responseText;

@@ -15,9 +15,7 @@ class TypeController extends Controller
             $type = Type::orderBy('id', 'DESC')->get();
             return view('admin.type.index', compact('type'));
         } catch (\Throwable $th) {
-            //throw $th;    
-            return view('servererror');
-            // return view("adminCategory.index", compact('category'));
+            throw $th;
         }
     }
 
@@ -26,9 +24,7 @@ class TypeController extends Controller
         try {
             return view('admin.type.create');
         } catch (\Throwable $th) {
-            //throw $th;    
-            return view('servererror');
-            // return view("adminCategory.index", compact('category'));
+            throw $th;
         }
     }
 
@@ -45,9 +41,7 @@ class TypeController extends Controller
 
             return redirect('type/index')->with('success', 'Type Created Successfully');
         } catch (\Throwable $th) {
-            //throw $th;    
-            return view('servererror');
-            // return view("adminCategory.index", compact('category'));
+            throw $th;
         }
     }
 
@@ -57,9 +51,7 @@ class TypeController extends Controller
             $type = Type::find($id);
             return view('admin.type.edit', \compact('type'));
         } catch (\Throwable $th) {
-            //throw $th;    
-            return view('servererror');
-            // return view("adminCategory.index", compact('category'));
+            throw $th;
         }
     }
 
@@ -77,9 +69,7 @@ class TypeController extends Controller
 
             return redirect('type/index')->with('success', 'Type Created Successfully');
         } catch (\Throwable $th) {
-            //throw $th;    
-            return view('servererror');
-            // return view("adminCategory.index", compact('category'));
+            throw $th;
         }
     }
 
@@ -90,9 +80,7 @@ class TypeController extends Controller
 
             return redirect()->back()->with('success', 'Delete Successfully');
         } catch (\Throwable $th) {
-            //throw $th;    
-            return view('servererror');
-            // return view("adminCategory.index", compact('category'));
+            throw $th;
         }
     }
 }

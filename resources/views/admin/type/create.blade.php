@@ -18,14 +18,14 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        <form action="{{ route('type.store') }}" enctype="multipart/form-data" class="was-validated" method="post">
+                        <form action="{{ route('type.store') }}" enctype="multipart/form-data" method="post">
                             @csrf
                             <div class="mb-3">
                                 <label for="title" class="form-label">Title</label>
                                 <input type="text" class="form-control" id="title" name="title">
                             </div>
                             <br>
-                            <button type="submit" class="btn btnback btn-sm" style="background-color: #002E6E; color:white;">Submit</button>
+                            <button type="submit" class="btn btn-success btn-sm">Submit</button>
                         </form>
                     </div>
 

@@ -42,7 +42,7 @@
                                 </div>
                             @endif
                             <div class="margin-top-20">
-                                <button type="submit" class="btn btn-sm " style="background-color: #002E6E; color:white;">Submit</button>
+                                <button type="submit" class="btn btn-sm ">Submit</button>
                             </div>
                         </form>
                     </div>

@@ -18,7 +18,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        <form action="{{ route('typedetail.store') }}" enctype="multipart/form-data" class="was-validated" method="post">
+                        <form action="{{ route('typedetail.store') }}" enctype="multipart/form-data" method="post">
                             @csrf
                             <div class="mb-3">
                                 <label for="title" class="form-label">Type</label>
@@ -108,7 +108,7 @@
                                 <input type="text" class="form-control" id="posterWidth" name="posterWidth">
                             </div>
                             <br>
-                            <button type="submit" class="btn btnback btn-sm" style="background-color: #002E6E; color:white;">Submit</button>
+                            <button type="submit" class="btn btn-success btn-sm">Submit</button>
                         </form>
                     </div>
                 </div>

@@ -527,11 +527,9 @@
         $(document).ready(function() {
             // Get the raw mobile number
             var rawMobileNumber = '{{ $influencer->profile->mobileno }}';
-            console.log("original", formattedNumber);
 
             // Format the mobile number
             var formattedNumber = formatMobileNumber(rawMobileNumber);
-            console.log("number", formattedNumber);
             // Update the content of the span element
             $('.formattedMobileNumber[data-influencer-id="{{ $influencer->id }}"]').text(formattedNumber);
 
@@ -543,8 +541,8 @@
             $('#chatBtn').click(function() {
                 // Toggle between original and formatted numbers
                 var $formattedMobileNumber = $('.formattedMobileNumber[data-influencer-id="{{ $influencer->id }}"]');
-                // alert($formattedMobileNumber)
                 var currentText = $formattedMobileNumber.text();
+
                 var id = $("#authId").val();
                 var influencerId = $("#influencerId").val();
                 var csrfToken = $('meta[name="csrf-token"]').attr('content');
@@ -563,7 +561,7 @@
                     }).then(function(confirm) {
                         if (confirm.isConfirmed) {
                             // $formattedMobileNumber.text(rawMobileNumber);
-
+                            console.log('id:', id);
                             // Add an AJAX request here
                             $.ajax({
                                 url: "{{ route('brand.influencerContactPoint') }}",
@@ -577,6 +575,7 @@
                                 },
                                 success: function(response) {
                                     // console.log("AJAX response:", response);
+                                    alert(response.message);
                                     if (response.message == "Success") {
                                         Swal.fire({
                                             icon: 'success',
@@ -600,7 +599,7 @@
                                 },
                                 error: function(xhr, status, error) {
                                     // Handle the AJAX error here
-                                    console.log("AJAX error:", error);
+                                    console.log("AJAX error:", xhr);
                                 }
                             });
                         }

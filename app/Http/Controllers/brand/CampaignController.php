@@ -544,8 +544,8 @@ class CampaignController extends Controller
         $seenStatus = ContactInfluencer::where('userId', $userId)
             ->where('influencerId', $influencerId)
             ->first();
-        if (!$seenStatus) {
 
+        if (!$seenStatus) {
 
             $brandPackageSum = BrandPoints::where('userId', '=', $userId)->sum('points');
             $brandPackage = BrandPoints::where('userId', '=', $userId)->first();
@@ -587,7 +587,11 @@ class CampaignController extends Controller
                         // return redirect('brand/pricing')->with('warning', "You don't have enough points to create a campaign. Please purchase or renew your package.");
                     }
                 }
+            } else {
+                return redirect('brand/pricing')->with('warning', "You don't have enough points to create a campaign. Please purchase or renew your package.");
             }
+        } else {
+            return redirect('brand/pricing')->with('warning', "You don't have enough points to create a campaign. Please purchase or renew your package.");
         }
 
         return response()->json($response);

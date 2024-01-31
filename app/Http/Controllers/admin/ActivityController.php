@@ -30,7 +30,7 @@ class ActivityController extends Controller
             $activity->save();
             return \redirect()->back()->with('success', 'Activity created successfully.');
         } catch (\Throwable $th) {
-            //throw $th;
+            throw $th;
             return \view('servererror');
         }
     }
@@ -52,7 +52,7 @@ class ActivityController extends Controller
             $activity->save();
             return \redirect()->back()->with('success', 'Activity updated successfully.');
         } catch (\Throwable $th) {
-            //throw $th;
+            throw $th;
             return \view('servererror');
         }
     }

@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\reseller\DashboardController;
 use App\Http\Controllers\reseller\ResellerController;
 use Illuminate\Support\Facades\Route;
 
-// Pending
-// Route::get('user/dashboard', [DashboardController::class, 'dashboard'])->name('user.dashboard');
+
+
+Route::get('reseller/dashboard', [DashboardController::class, 'dashboard'])->name('reseller.dashboard');
 
 
 

@@ -20,9 +20,7 @@ class TypedetailController extends Controller
                 ->get(['typedetails.*', 'types.title']);
             return view('admin.typedetail.index', compact('typedetail'));
         } catch (\Throwable $th) {
-            //throw $th;    
-            return view('servererror');
-            // return view("adminCategory.index", compact('category'));
+            throw $th;
         }
     }
 
@@ -32,9 +30,7 @@ class TypedetailController extends Controller
             $type  = Type::all();
             return view('admin.typedetail.create', compact('type'));
         } catch (\Throwable $th) {
-            //throw $th;    
-            return view('servererror');
-            // return view("adminCategory.index", compact('category'));
+            throw $th;
         }
     }
 
@@ -80,9 +76,7 @@ class TypedetailController extends Controller
 
             return redirect('typedetail/index')->with('success', 'Detail Added Successfully');
         } catch (\Throwable $th) {
-            //throw $th;    
-            return view('servererror');
-            // return view("adminCategory.index", compact('category'));
+            throw $th;
         }
     }
 
@@ -93,9 +87,7 @@ class TypedetailController extends Controller
             $typedetail = Typedetail::find($id);
             return view('admin.typedetail.edit', compact('type', 'typedetail'));
         } catch (\Throwable $th) {
-            //throw $th;    
-            return view('servererror');
-            // return view("adminCategory.index", compact('category'));
+            throw $th;
         }
     }
 
@@ -142,9 +134,7 @@ class TypedetailController extends Controller
 
             return redirect('typedetail/index')->with('success', 'Detail Updated Successfully');
         } catch (\Throwable $th) {
-            //throw $th;    
-            return view('servererror');
-            // return view("adminCategory.index", compact('category'));
+            throw $th;
         }
     }
 
@@ -156,9 +146,7 @@ class TypedetailController extends Controller
             $data = Typedetail::find($id)->delete();
             return redirect()->back()->with('success', 'Deleted Successfully');
         } catch (\Throwable $th) {
-            //throw $th;    
-            return view('servererror');
-            // return view("adminCategory.index", compact('category'));
+            throw $th;
         }
     }
 }

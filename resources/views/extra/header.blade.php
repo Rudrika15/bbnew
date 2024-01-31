@@ -1,16 +1,16 @@
 <style>
     .switch-container .switch-option {
         cursor: pointer !important;
-        padding: 5px 10px !important;
+        /* padding: 5px 10px !important; */
         border-radius: 5px !important;
-        margin: 5px !important;
-        background-color: #00CCFF !important;
-        color: white !important;
+        margin-top: 5px !important;
+        background-color: #1BC7EC !important;
+        color: #002E6E !important;
         border-radius: 50px !important;
     }
 
     .switch-container .switch-option.selected-role {
-        background-color: darkblue !important;
+        background-color: #002E6E !important;
         color: white !important;
     }
 </style>
@@ -32,9 +32,23 @@
 
 
                             <div class="switch-container">
+                                @php
+                                    $hasUser = false;
+                                @endphp
+
                                 @foreach (Auth::user()->roles as $role)
-                                    <a class="switch-option text-decoration-none btn " href="#" id="roleSwitch">{{ $role->name }}</a>
+                                    @if ($role->name === 'User')
+                                        @php
+                                            $hasUser = true;
+                                        @endphp
+                                    @else
+                                        <a class="switch-option dropdown-item text-decoration-none btn" href="#" id="roleSwitch">{{ $role->name }}</a>
+                                    @endif
                                 @endforeach
+
+                                @if ($hasUser)
+                                    <a class="switch-option dropdown-item text-decoration-none btn" href="#" id="roleSwitch">My Account</a>
+                                @endif
                             </div>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();

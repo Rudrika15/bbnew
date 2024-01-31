@@ -24,8 +24,7 @@ class UserTemplateMasterController extends Controller
         try {
             return view('user.UserTemplate.create');
         } catch (\Throwable $th) {
-            //throw $th;
-
+            throw $th;
         }
     }
 

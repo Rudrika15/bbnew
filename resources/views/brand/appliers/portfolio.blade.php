@@ -40,7 +40,7 @@
                                         <div style="display: flex; justify-content: space-between;">
                                             <a class="btn btn-sm btn-success" href="{{ route('brand.campaign.influencerContentApproval') }}/{{ request('campaignId') }}/{{ $data->userId }}/{{ $data->id }}" onclick="return confirm('Are you sure?')"><i class="menu-icon fa fa-check-circle-o text-white fa-lg"></i></a>
                                             <a class="btn btn-sm btn-primary" href="{{ route('brand.campaign.influencerContentOnHold') }}/{{ request('campaignId') }}/{{ $data->userId }}/{{ $data->id }}"><i class="menu-icon fa fa-pause text-white fa-lg"></i></a>
-                                            <a class="btn btn-sm btn-danger" data-remodal-target="remodal-{{ $data->id }}" href="#"><i class="menu-icon fa fa-close text-white fa-lg"></i></a>
+                                            <a class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop-{{ $data->id }}"><i class="menu-icon fa fa-close text-white fa-lg"></i></a>
                                         </div>
                                     </div>
 
@@ -53,18 +53,34 @@
                                 <div class="remodal-content">
                                     <h2 id="modal1Title">Message for Rejection</h2>
                                     <p id="modal1Desc">
-                                    <form action="{{ route('brand.campaign.influencerContentReject') }}" method="post">
-                                        @csrf
-                                        <label for="">Message</label>
-                                        <input type="hidden" name="imageId" value="{{ $data->id }}">
-                                        <input type="hidden" name="userId" value="{{ $data->userId }}">
-                                        <input type="hidden" name="campaignId" value="{{ request('campaignId') }}">
-                                        <textarea name="remark" placeholder="Add remark for rejection" class="form-control"></textarea>
-                                        <br>
-                                        <button type="submit" class="btn btn-success">OK</button>
-                                        <button data-remodal-action="cancel" class="btn btn-danger">Cancel</button>
-                                    </form>
+
                                     </p>
+                                </div>
+                            </div>
+                            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form action="{{ route('brand.campaign.influencerContentReject') }}" method="post">
+                                                @csrf
+                                                <label for="">Message</label>
+                                                <input type="hidden" name="imageId" value="{{ $data->id }}">
+                                                <input type="hidden" name="userId" value="{{ $data->userId }}">
+                                                <input type="hidden" name="campaignId" value="{{ request('campaignId') }}">
+                                                <textarea name="remark" placeholder="Add remark for rejection" class="form-control"></textarea>
+                                                <br>
+                                                <button type="submit" class="btn btn-success">OK</button>
+                                                <button data-remodal-action="cancel" class="btn btn-danger">Cancel</button>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         @endforeach

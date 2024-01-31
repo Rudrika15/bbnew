@@ -131,6 +131,8 @@ class HomepageController extends Controller
             return view('brand.layouts.app');
         } elseif ($selectedRole === 'Influencer') {
             return view('influencer.layouts.app');
+        } elseif ($selectedRole === 'Reseller') {
+            return view('reseller.layouts.app');
         } else {
             return view('user.layouts.app');
         }

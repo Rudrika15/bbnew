@@ -5,7 +5,7 @@ use App\Http\Controllers\brand\BrandPackageDetailController;
 use App\Http\Controllers\brand\CampaignController;
 use App\Http\Controllers\brand\CampaignStepController;
 use App\Http\Controllers\brand\DashboardController;
-use App\Http\Controllers\InstaMojoPaymentController;
+use App\Http\Controllers\brand\InstaMojoPaymentController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('brand/dashboard', [DashboardController::class, 'dashboard'])->name('brand.dashboard');

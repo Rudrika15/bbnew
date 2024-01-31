@@ -238,3 +238,7 @@ Route::post('designer-cost-store', [CostController::class, 'store'])->name('desi
 Route::get('/paymentReport/index', [ManualPaymentController::class, 'index'])->name('paymentReport.index');
 Route::post('/changeStatus', [ManualPaymentController::class, 'changeStatus'])->name('paymentReport.changeStatus');
 Route::post('/updateUserPackage', [ManualPaymentController::class, 'updateUserPackage'])->name('updateUserPackage');
+
+
+// export
+Route::get('/export-users', [UserController::class, 'export'])->name('export.users');

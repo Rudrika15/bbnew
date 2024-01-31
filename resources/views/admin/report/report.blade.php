@@ -20,6 +20,9 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
+                        <div class="text-end">
+                            <a class="btn btn-info btn-sm" href="{{ route('export.users') }}">Export</a>
+                        </div>
                         <div class="table-responsive">
                             <?php
                         if (isset($_GET['type'])) {

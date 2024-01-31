@@ -39,8 +39,8 @@
                                     </div>
                                 </div>
                                 <!-- <div class="box-content" style="width: 200px;">
-                                                                                                    <input type="file" id="input-file-now-custom-1" class="dropify" name="iconPath" data-default-file="http://placehold.it/1000x667" />
-                                                                                                </div> -->
+                                                    <input type="file" id="input-file-now-custom-1" class="dropify" name="iconPath" data-default-file="http://placehold.it/1000x667" />
+                                            </div> -->
                             </div>
 
 
