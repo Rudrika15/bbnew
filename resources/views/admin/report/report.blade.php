@@ -20,9 +20,6 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        <div class="text-end">
-                            <a class="btn btn-info btn-sm" href="{{ route('export.users') }}">Export</a>
-                        </div>
                         <div class="table-responsive">
                             <?php
                         if (isset($_GET['type'])) {
@@ -31,8 +28,15 @@
                             $type = 'free';
                         }
                         if ($type === 'paid') {
-                        ?>
-                            <h3>Paid User List</h3>
+                            ?>
+                            <div class="d-flex justify-content-between m-2">
+                                <div class="">
+                                    <h3>Paid User List</h3>
+                                </div>
+                                <div class="">
+                                    <a class="btn btn-info btn-sm" href="{{ route('export.users') }}?type=paid">Export</a>
+                                </div>
+                            </div>
                             <table class="table table-bordered t2">
                                 <thead>
                                     <tr>
@@ -82,7 +86,14 @@
                             <?php
                         } else {
                         ?>
-                            <h3>Free User List</h3>
+                            <div class="d-flex justify-content-between">
+                                <div class="">
+                                    <h3>Free User List</h3>
+                                </div>
+                                <div class="">
+                                    <a class="btn btn-info btn-sm" href="{{ route('export.users') }}?type=free">Export</a>
+                                </div>
+                            </div>
                             <table class="table table-bordered t1">
                                 <thead>
                                     <tr>

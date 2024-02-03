@@ -10,7 +10,6 @@
                         <h3>Add Media</h3>
                     </div>
 
-
                     <div class="p-2">
                         <a href="{{ route('influencer.campaignApplyList') }}" class="btn btn-primary">Back</a>
                     </div>
@@ -44,7 +43,7 @@
                                             <div class="col-md-7">
                                                 <input type="file" onchange="readURL(this,'#img1')" class="form-control" id="image" name="photo" require>
                                             </div>
-                                            <span></span>
+                                            <br>
                                             <div class="col-md-5">
                                                 <label for="image"></label>
                                                 <img src="{{ url('images/default.jpg') }}" alt="{{ __('main image') }}" id="img1" style='min-height:100px;min-width:150px;max-height:100px;max-width:150px'>
@@ -99,8 +98,7 @@
                                         @endif
 
                                         <td>
-                                            delete route pending
-                                            {{-- <a class="fs-5 btn btn-sm btn-danger" onclick="return confirm('Are you sure?')" href="{{ Route('photo.delete') }}/{{ $image->id }}">Delete</a> --}}
+                                            <a class="fs-5 btn btn-sm btn-danger" onclick="return confirm('Are you sure?')" href="{{ Route('appliedPhotoDelete') }}/{{ $image->id }}">Delete</a>
                                         </td>
                                     </tr>
                                 @endforeach

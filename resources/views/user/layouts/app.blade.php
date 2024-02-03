@@ -1,8 +1,12 @@
 <div class="list-group list-group-flush">
-    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{{ route('user.dashboard') }}">
+    {{-- {{ Route::currentRouteName() }}
+    {{ url()->current() }}
+    {{ url()->full() }} --}}
+
+    <a class="list-group-item list-group-item-action list-group-item-light p-3 href="{{ route('user.dashboard') }}">
         <i class="bi bi-speedometer"></i> Dashboard
     </a>
-    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{{ route('profile') }}">
+    <a class="list-group-item list-group-item-action list-group-item-light p-3 " href="{{ route('profile') }}">
         <i class="bi bi-person-fill"></i> Profile
     </a>
     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{{ route('portfolio.index') }}">
@@ -26,7 +30,7 @@
     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{{ route('refer.index') }}">
         <i class="bi bi-person-add"></i> Referral
     </a>
-    {{-- <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{{ route('pricing.index') }}">
+    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{{ route('pricing.index') }}">
         <i class="bi bi-piggy-bank-fill"></i> Pricing
-    </a> --}}
+    </a>
 </div>

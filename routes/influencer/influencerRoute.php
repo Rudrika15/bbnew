@@ -19,6 +19,7 @@ Route::get('influencer/brands', [InfluencerController::class, 'brands'])->name('
 Route::get('influencer/campaign/{id?}', [InfluencerController::class, 'campaigns'])->name('influencer.campaignView');
 Route::post('influencer/campaignApply', [InfluencerController::class, 'campaignApply'])->name('influencer.campaignApply');
 Route::get('influencer/campaignApplyList', [InfluencerController::class, 'campaignApplyList'])->name('influencer.campaignApplyList');
+Route::get('influencer/appliedPhotoDelete/{id?}', [InfluencerController::class, 'appliedPhotoDelete'])->name('appliedPhotoDelete');
 
 // Applies
 Route::get('influencer/campaign/appliersCreate/{campaignId?}/{userId?}', [InfluencerController::class, 'appliersCreate'])->name('brand.campaign.appliersCreate');

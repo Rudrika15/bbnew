@@ -286,8 +286,8 @@ class CampaignController extends Controller
     public function influencerPortfolio($campaignId, $userId)
     {
         try {
-            $postImage = CheckApply::where('userId', '=', $userId)->where('fileType', '=', 'Photo')->get();
-            $postVideo = CheckApply::where('userId', '=', $userId)->where('fileType', '=', 'Video')->get();
+            $postImage = CheckApply::where('campaignId', '=', $campaignId)->where('userId', '=', $userId)->where('fileType', '=', 'Photo')->get();
+            $postVideo = CheckApply::where('campaignId', '=', $campaignId)->where('userId', '=', $userId)->where('fileType', '=', 'Video')->get();
             $steps  = CampaignStep::where('campaignId', '=', $campaignId)->get();
             $followedStep = CampaignInfluencerActivityStep::all();
             return view('brand.appliers.portfolio', \compact('postImage', 'postVideo', 'steps', 'followedStep'));
@@ -303,6 +303,9 @@ class CampaignController extends Controller
 
     public function influencerContentApproval($campaignId, $userId, $id, Request $request)
     {
+        // return $id;
+        // return $userId;
+        // return $campaignId;
         try {
             $apply = CheckApply::where('campaignId', '=', $campaignId)
                 ->where('userId', '=', $userId)

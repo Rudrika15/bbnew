@@ -418,24 +418,60 @@ class UserController extends Controller
         return back()->with('success', 'User status updated successfully.');
     }
 
-    public function export()
+    public function export(Request $request)
     {
-        $users = User::all(); // Assuming User is your model for users
+        $type = $request->type;
 
-        // You can format the data as CSV, JSON, or any other format here
-        // For example, to export as CSV:
-        $csv = Writer::createFromString('');
-        $csv->insertOne(['Name', 'Email', 'MobileNumber', 'PackageType']);
+        if ($type == "paid") {
+            $users = User::where('package', '!=', 'FREE')->get(); // Assuming User is your model for users
 
-        foreach ($users as $user) {
-            $csv->insertOne([$user->name, $user->email, $user->mobileno, $user->package]);
+            // You can format the data as CSV, JSON, or any other format here
+            // For example, to export as CSV:
+            $csv = Writer::createFromString('');
+            $csv->insertOne(['Name', 'Email', 'MobileNumber', 'PackageType']);
+
+            foreach ($users as $user) {
+                $csv->insertOne([$user->name, $user->email, $user->mobileno, $user->package]);
+            }
+            $filename = 'PaidUsers.csv';
+
+            return response($csv, 200, [
+                'Content-Type' => 'text/csv',
+                'Content-Disposition' => "attachment; filename=\"$filename\"",
+            ]);
+        } else {
+            $users = User::where('package', 'FREE')->get(); // Assuming User is your model for users
+
+            // You can format the data as CSV, JSON, or any other format here
+            // For example, to export as CSV:
+            $csv = Writer::createFromString('');
+            $csv->insertOne(['Name', 'Email', 'MobileNumber', 'PackageType', 'Validity']);
+
+            foreach ($users as $user) {
+                $csv->insertOne([$user->name, $user->email, $user->mobileno, $user->package, $user->validity]);
+            }
+            $filename = 'FreeUsers.csv';
+
+            return response($csv, 200, [
+                'Content-Type' => 'text/csv',
+                'Content-Disposition' => "attachment; filename=\"$filename\"",
+            ]);
         }
+        // $users = User::all(); // Assuming User is your model for users
 
-        $filename = 'users.csv';
+        // // You can format the data as CSV, JSON, or any other format here
+        // // For example, to export as CSV:
+        // $csv = Writer::createFromString('');
+        // $csv->insertOne(['Name', 'Email', 'MobileNumber', 'PackageType']);
 
-        return response($csv, 200, [
-            'Content-Type' => 'text/csv',
-            'Content-Disposition' => "attachment; filename=\"$filename\"",
-        ]);
+        // foreach ($users as $user) {
+        //     $csv->insertOne([$user->name, $user->email, $user->mobileno, $user->package]);
+        // }
+        // $filename = 'users.csv';
+
+        // return response($csv, 200, [
+        //     'Content-Type' => 'text/csv',
+        //     'Content-Disposition' => "attachment; filename=\"$filename\"",
+        // ]);
     }
 }

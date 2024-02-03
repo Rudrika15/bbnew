@@ -164,7 +164,7 @@ class InfluencerController extends Controller
             $appliers = Apply::with(['campaign' => function ($query) use ($userId) {
                 $query->where('userId', '=', $userId);
             }])->where('campaignId', '=', $campaignId)->first();
-            return redirect('influencer/campaignApplyList')->with('success', 'Details Added Successfully..');
+            return redirect()->back()->with('success', 'Details Added Successfully..');
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -214,9 +214,15 @@ class InfluencerController extends Controller
         }
     }
 
-    public function destroy()
+    public function appliedPhotoDelete($id)
     {
-        //
+        try {
+            $check = CheckApply::find($id);
+            $check->delete();
+            return redirect()->back()->with('success', 'Deleted Successfully..');
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
 
     public function RegisterInfluencer()

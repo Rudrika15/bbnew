@@ -361,4 +361,15 @@ class DashboardController extends Controller
             throw $th;
         }
     }
+    function photodestroy($id)
+    {
+        try {
+            $photo = Cardportfoilo::find($id);
+            // return $photo;
+            $photo->delete();
+            return redirect()->back()->with('success', "deleted successfully");
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
 }

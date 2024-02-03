@@ -24,6 +24,7 @@ Route::get('user/dashboard', [DashboardController::class, 'dashboard'])->name('u
 Route::get('user/profile', [DashboardController::class, 'edit'])->name('profile');
 Route::get('mycard/{name?}', [DashboardController::class, 'index'])->name('user.card');
 Route::post('card/store', [DashboardController::class, 'store'])->name('card.store');
+Route::get('photo-delete/{id?}', [DashboardController::class, 'photodestroy'])->name('photo.delete');
 
 
 // feedback and inquiry
