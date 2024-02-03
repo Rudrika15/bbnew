@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Razorpay extends Model
 {
     use HasFactory;
+
+    protected $table = 'razorpays';
+    protected $guarded = ['id'];
 }

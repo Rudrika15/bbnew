@@ -53,9 +53,12 @@ Route::get('/pricing', [PricingController::class, 'index'])->name('pricing.index
 
 
 Route::group(['prefix' => 'instamojopayments'], function () {
-    Route::post('/payment', [PricingController::class, 'store'])->name('package.payment');
-    Route::any('/success/package', [PricingController::class, 'success']);
+    // Route::post('/payment', [PricingController::class, 'store'])->name('package.payment');
+    // Route::any('/success/package', [PricingController::class, 'success']);
 });
+
+Route::get('payment', [PricingController::class, 'index']);
+Route::post('razorpay-payment', [PricingController::class, 'store'])->name('razorpay.payment.store');
 
 
 

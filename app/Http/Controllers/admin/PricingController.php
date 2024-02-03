@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\BrandPackage;
+use App\Models\BrandPoints;
 use App\Models\Package;
+use App\Models\Razorpay;
 use App\Models\Subscription;
 use App\Models\Subscriptiondetail;
 use App\Models\Subscriptionpackage;
@@ -11,12 +14,11 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Razorpay\Api\Api;
-use Session;
+
 use Exception;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
-
-
+use Illuminate\Support\Facades\Session;
 
 class PricingController extends Controller
 {
@@ -132,4 +134,59 @@ class PricingController extends Controller
     //         // dd('Payment Failed!');
     //     }
     // }
+
+
+    // razorpay payment
+    // public function store(Request $request)
+    // {
+    //     $input = $request->all();
+    //     $api = new Api(env('RAZORPAY_KEY'), env('RAZORPAY_SECRET'));
+    //     $payment = $api->payment->fetch($input['razorpay_payment_id']);
+    //     if (count($input) && !empty($input['razorpay_payment_id'])) {
+    //         try {
+    //             $response = $api->payment->fetch($input['razorpay_payment_id'])->capture(array('amount' => $payment['amount']));
+    //             $payment = Razorpay::create([
+    //                 'r_payment_id' => $response['id'],
+    //                 'method' => $response['method'],
+    //                 'currency' => $response['currency'],
+    //                 'user_email' => $response['email'],
+    //                 'amount' => $response['amount'] / 100,
+    //                 'json_response' => json_encode((array)$response)
+    //             ]);
+    //         } catch (Exception $e) {
+    //             return $e->getMessage();
+    //             Session::put('error', $e->getMessage());
+    //             return redirect()->back();
+    //         }
+    //     }
+    //     Session::put('success', ('Payment Successful'));
+    //     return redirect()->back();
+    // }
+
+    public function store(Request $request)
+    {
+
+        // Store the payment ID in the table
+        $payment = new Razorpay();
+        $payment->payment_id = $request->input('paymentId');
+        $payment->user_id = Auth::user()->id;
+        $payment->amount = $request->input('amount');
+        $payment->save();
+
+        $hasPackage = BrandPoints::where('userId', '=', Auth::user()->id)->count();
+        $packagePoints = BrandPackage::where('price', '=', $request->input('amount'))->first();
+        $points = new BrandPoints();
+        $points->userId = Auth::user()->id;
+        $points->email = Auth::user()->email;
+        $points->points = $packagePoints->points;
+        if ($hasPackage > 0)
+            $points->remark = "Renew Package";
+        else
+            $points->remark = "Purchase";
+        $points->save();
+        // Additional logic such as order processing, user notification, etc.
+
+        // Return a response
+        return response()->json(['message' => 'Payment ID stored successfully'], 200);
+    }
 }
