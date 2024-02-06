@@ -3,7 +3,7 @@
 @section('content')
 
     <div class='container'>
-        <div class='row pt-5'>
+        <div class='row'>
             <div class='col-md-12'>
                 <div class="d-flex justify-content-between mb-3">
                     <div class="p-2">

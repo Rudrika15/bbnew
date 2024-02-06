@@ -2,7 +2,7 @@
 @section('title', 'Brand beans | Edit Campaign Step')
 @section('content')
     <div class='container'>
-        <div class='row pt-5'>
+        <div class='row'>
             <div class='col-md-12'>
                 <div class="d-flex justify-content-between mb-3">
                     <div class="p-2">
@@ -19,7 +19,7 @@
                 <div class="card">
                     <div class="card-body">
 
-                        <form action="{{ route('brand.campaign.step.update') }}" enctype="multipart/form-data"  method="post" style="margin-top: 15px;">
+                        <form action="{{ route('brand.campaign.step.update') }}" enctype="multipart/form-data" method="post" style="margin-top: 15px;">
                             @csrf
 
                             <input type="hidden" name="campaignStepId" value="{{ $step->id }}">

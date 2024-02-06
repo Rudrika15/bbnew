@@ -2,7 +2,7 @@
 @section('title', 'Brand beans | Edit City')
 @section('content')
     <div class='container'>
-        <div class='row pt-5'>
+        <div class='row'>
             <div class='col-md-12'>
                 <div class="d-flex justify-content-between mb-3">
                     <div class="p-2">
@@ -24,8 +24,7 @@
                             <input type="hidden" name="cityid" id="cityid" value="{{ request('id') }}">
                             <div class="mb-3">
                                 <label for="cityname" class="form-label">City Name</label>
-                                <input type="text" class="form-control" value="{{ $city->city }}" id="cityname"
-                                    name="cityname" required>
+                                <input type="text" class="form-control" value="{{ $city->city }}" id="cityname" name="cityname" required>
                             </div>
                             <div class="mb-3">
                                 <label for="statename" class="form-label">State Name</label>

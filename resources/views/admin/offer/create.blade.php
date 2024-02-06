@@ -2,7 +2,7 @@
 @section('title', 'Brand beans | Offer ')
 @section('content')
     <div class='container'>
-        <div class='row pt-5'>
+        <div class='row'>
             <div class='col-md-12'>
                 <div class="d-flex justify-content-between mb-3">
                     <div class="p-2">
@@ -41,7 +41,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <label for="image"></label>
-                                        <img src="{{ url('asset/img/default.jpg') }}" alt="{{ __('main image') }}" id="img1" style='min-height:100px;min-width:100px;max-height:100px;max-width:100px'>
+                                        <img src="{{ url('images/default.jpg') }}" alt="{{ __('main image') }}" id="img1" style='min-height:100px;min-width:100px;max-height:100px;max-width:100px'>
                                     </div>
                                 </div>
                             </div>

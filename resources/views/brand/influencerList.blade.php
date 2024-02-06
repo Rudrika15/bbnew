@@ -2,7 +2,13 @@
 @section('title', 'Brand beans | Create Campaign Step')
 @section('content')
     <div class='container'>
-        <div class='row pt-5'>
+        <div class='row'>
+            @if ($message = Session::get('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>{{ $message }}</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
             <div class='col-md-12'>
                 <form action="{{ route('brand.influencerList') }}" method="get">
                     <div class="row d-flex justify-content-center">
@@ -42,7 +48,7 @@
                                             @if (isset($influencers->profilePhoto))
                                                 <img src="{{ asset('profile') }}/{{ $influencers->profilePhoto }}" class="img-thumbnail" height="300px"alt="...">
                                             @else
-                                                <img src="{{ asset('asset/img/defaultPerson.jpg') }}" class="img-thumbnail" height="300px" alt="...">
+                                                <img src="{{ asset('images/defaultPerson.jpg') }}" class="img-thumbnail" height="300px" alt="...">
                                             @endif
                                             <div class="card-body">
                                                 <h5 class="card-title"> {{ $influencers->name }}</h5>

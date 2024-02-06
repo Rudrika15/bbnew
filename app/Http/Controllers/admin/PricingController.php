@@ -173,6 +173,20 @@ class PricingController extends Controller
         $payment->amount = $request->input('amount');
         $payment->save();
 
+        // update user package
+        $user = User::find(Auth::user()->id);
+        $user->package = "SILVER";
+        if ($user->validity) {
+            // If validity date is available in the database, add 365 days to it
+            $validity = Carbon::parse($user->validity)->addDays(365);
+        } else {
+            // If validity date is not available, set it to the current date plus 365 days
+            $validity = Carbon::now()->addDays(365);
+        }
+        $user->validity = $validity;
+        $user->save();
+
+        // add points of user
         $hasPackage = BrandPoints::where('userId', '=', Auth::user()->id)->count();
         $packagePoints = BrandPackage::where('price', '=', $request->input('amount'))->first();
         $points = new BrandPoints();

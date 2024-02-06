@@ -410,7 +410,7 @@
                 @if (isset($influencer->profile->profilePhoto))
                     <img src="{{ asset('profile') }}/{{ $influencer->profile->profilePhoto }}" width="200" alt="Profile Image">
                 @else
-                    <img src="{{ asset('asset/img/defaultPerson.jpg') }}" width="200" alt="Profile Image">
+                    <img src="{{ asset('images/defaultPerson.jpg') }}" width="200" alt="Profile Image">
                 @endif
             </div>
             <div class="profile-nav-info">

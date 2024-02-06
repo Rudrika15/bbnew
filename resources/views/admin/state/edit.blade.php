@@ -2,7 +2,7 @@
 @section('title', 'Brand beans | Edit State')
 @section('content')
     <div class='container'>
-        <div class='row pt-5'>
+        <div class='row'>
             <div class='col-md-12'>
                 <div class="d-flex justify-content-between mb-3">
                     <div class="p-2">
@@ -25,8 +25,7 @@
                             <input type="hidden" name="stateid" id="stateid" value="{{ $state->id }}">
                             <div class="mb-3">
                                 <label for="statename" class="form-label">State Name</label>
-                                <input type="text" class="form-control" value="{{ $state->sname }}" id="statename"
-                                    name="statename" required>
+                                <input type="text" class="form-control" value="{{ $state->sname }}" id="statename" name="statename" required>
                             </div>
                             <button type="submit" class="btn btn-success btn-sm">Submit</button>
                         </form>

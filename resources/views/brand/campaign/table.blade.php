@@ -3,21 +3,22 @@
 
         <div class="col-md-8">
             @foreach ($campaign as $data)
-                <div class="card-group" style="border: gray solid 1px; margin: 10px; border-radius: 10px;">
+                <div class="card">
 
                     <div class="row">
-                        <div class="col-md-6" style="padding: 5px 0 0 20px;">
+                        <div class="col-md-12">
+                            <h3 class="card-title text-center">{{ $data->title }}
+                                <hr>
+                            </h3>
                             @if (isset($data->photo))
-                                <img class="card-img-top" src="{{ asset('campaignPhoto') }}/{{ $data->photo }}" style="height: 300px;width: 400px; border-radius: 10px;" alt="Card image cap" />
+                                <img class="img-fluid" src="{{ asset('campaignPhoto') }}/{{ $data->photo }}" alt="Card image cap" />
                             @else
-                                <img class="card-img-top" src="{{ asset('asset/img/defaultCover.jpg') }}" style="height: 300px;width: 400px; border-radius: 10px;" alt="Card image cap" />
+                                <img class="img-fluid" src="{{ asset('asset/img/defaultCover.jpg') }}" alt="Card image cap" />
                             @endif
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-12 ">
                             <div class="card-body">
-                                <h3 class="card-title text-center">{{ $data->title }}
-                                    <hr>
-                                </h3>
+
 
                                 <div class="text-center">
                                     <strong>Details</strong>
@@ -25,25 +26,29 @@
                                 </div>
                                 <div class="row">
 
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <strong>price</strong>
                                         <p class="card-text">{{ $data->price }}</p>
                                         <strong>Rules</strong>
                                         <p class="card-text" style="word-wrap: break-word;">{{ $data->rule }}</p>
                                         <strong>Eligible Criteria</strong>
                                         <p class="card-text">{{ $data->eligibleCriteria }}</p>
-                                        <strong>Target Gender</strong>
-                                        <p class="card-text">{{ $data->targetGender }}</p>
-                                        <strong>Target Age Group</strong>
-                                        <p class="card-text">{{ $data->targetAgeGroup }}</p>
+
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <strong>Start Date</strong>
                                         <p class="card-text">{{ $data->startDate }}</p>
                                         <strong>End Date</strong>
                                         <p class="card-text">{{ $data->endDate }}</p>
                                         <strong>Apply For Last Date</strong>
                                         <p class="card-text">{{ $data->applyForLastDate }}</p>
+
+                                    </div>
+                                    <div class="col-md-4">
+                                        <strong>Target Gender</strong>
+                                        <p class="card-text">{{ $data->targetGender }}</p>
+                                        <strong>Target Age Group</strong>
+                                        <p class="card-text">{{ $data->targetAgeGroup }}</p>
                                         <strong>Max Application</strong>
                                         <p class="card-text">{{ $data->maxApplication }}</p>
                                     </div>
@@ -70,20 +75,18 @@
                 <div class="col-md-12">
                     @foreach ($influencer as $influencerData)
                         <a href="{{ route('brand.influencerProfile') }}/{{ $influencerData->id }}/{{ Auth::user()->id }}">
-                            <div class="col-4">
 
-                                <div class="card">
-                                    <div class="text-center">
-                                        @if (isset($influencerData->profilePhoto))
-                                            <img src="{{ asset('profile') }}/{{ $influencerData->profilePhoto }}" style="border: 1px solid white; border-radius: 20%" width="200px" alt="image">
-                                        @else
-                                            <img src="{{ asset('asset/img/defaultPerson.jpg') }}" class="img-thumbnail" style="border: 1px solid white; border-radius: 20%" width="200px" alt="image">
-                                        @endif
-                                    </div>
-                                    <div class="card-body text-dark">
-                                        {{-- <h3 class="card-title">{{ $influencerData->name }}</h3> --}}
-                                        <p class="card-text"><span>@</span>{{ $influencerData->username }}</p>
-                                    </div>
+                            <div class="card">
+                                <div class="text-center">
+                                    @if (isset($influencerData->profilePhoto))
+                                        <img src="{{ asset('profile') }}/{{ $influencerData->profilePhoto }}" style="border: 1px solid white; border-radius: 20%" width="200px" alt="image">
+                                    @else
+                                        <img src="{{ asset('images/defaultPerson.jpg') }}" class="img-thumbnail" style="border: 1px solid white; border-radius: 20%" width="200px" alt="image">
+                                    @endif
+                                </div>
+                                <div class="card-body text-dark">
+                                    {{-- <h3 class="card-title">{{ $influencerData->name }}</h3> --}}
+                                    <p class="card-text fw-bold"><span>@</span>{{ $influencerData->username }}</p>
                                 </div>
                             </div>
                         </a>

@@ -66,7 +66,7 @@ class CampaignController extends Controller
 
         if ($user->package != "FREE") {
             try {
-                $brandPackage = BrandPoints::where('userId', '=', 271)->first();
+                $brandPackage = BrandPoints::where('userId', '=', $user->id)->first();
                 $package = BrandPackage::where('points', $brandPackage->points)->first();
 
                 $packageDetailData = BrandPackageDetail::where('brandPackageId', $package->id)->first();

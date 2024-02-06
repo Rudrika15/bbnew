@@ -2,7 +2,7 @@
 @section('title', 'Brand beans | User Create')
 @section('content')
     <div class='container'>
-        <div class='row pt-5'>
+        <div class='row'>
             <div class='col-md-12'>
                 <div class="d-flex justify-content-between mb-3">
                     <div class="p-2">
@@ -40,17 +40,17 @@
                                 </div>
                             </div>
                             <!-- <div class="col-xs-12 col-sm-12 col-md-12">
-                                                                <div class="form-group">
-                                                                    <strong>Password:</strong>
-                                                                    {!! Form::password('password', ['placeholder' => 'Password', 'class' => 'form-control']) !!}
+                                                                    <div class="form-group">
+                                                                        <strong>Password:</strong>
+                                                                        {!! Form::password('password', ['placeholder' => 'Password', 'class' => 'form-control']) !!}
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                                                <div class="form-group">
-                                                                    <strong>Confirm Password:</strong>
-                                                                    {!! Form::password('confirm-password', ['placeholder' => 'Confirm Password', 'class' => 'form-control']) !!}
-                                                                </div>
-                                                            </div> -->
+                                                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                                                    <div class="form-group">
+                                                                        <strong>Confirm Password:</strong>
+                                                                        {!! Form::password('confirm-password', ['placeholder' => 'Confirm Password', 'class' => 'form-control']) !!}
+                                                                    </div>
+                                                                </div> -->
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>Role:</strong>

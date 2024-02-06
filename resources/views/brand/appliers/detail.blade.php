@@ -1,11 +1,15 @@
-
-
-
 @extends('extra.master')
 @section('title', 'Brand beans | Create Campaign Step')
 @section('content')
+
     <div class='container'>
-        <div class='row pt-5'>
+        @if ($message = Session::get('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>{{ $message }}</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+        <div class='row'>
             <div class='col-md-12'>
                 <div class="d-flex justify-content-between mb-3">
                     <div class="">

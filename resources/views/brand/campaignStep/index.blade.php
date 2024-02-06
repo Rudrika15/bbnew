@@ -4,10 +4,10 @@
     <div class='container'>
         <!-- Add this to your Blade template -->
 
-        <div class='row pt-5'>
-            @if (session('success'))
+        <div class='row'>
+            @if ($message = Session::get('success'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <strong>{{ session('success') }}</strong>
+                    <strong>{{ $message }}</strong>
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @endif

@@ -4,7 +4,7 @@
 
 
     <div class='container'>
-        <div class='row pt-5'>
+        <div class='row'>
             <div class='col-md-12'>
                 <h1>Brand Dashboard</h1>
             </div>

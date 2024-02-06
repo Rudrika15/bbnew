@@ -27,10 +27,10 @@
 </head>
 
 <body>
-    <div class="d-flex" id="wrapper">
+    <div class="d-flex " id="wrapper">
         <!-- Sidebar-->
-        <div class="border-end bg-white" id="sidebar-wrapper">
-            <div class="sidebar-heading border-bottom bg-light">
+        <div class="border-end bg-white " id="sidebar-wrapper">
+            <div class="sidebar-heading border-bottom bg-light sticky-top">
                 <img src="{{ asset('images/logo.png') }}" class="logo" alt="">
             </div>
             <div id="layoutContainer">

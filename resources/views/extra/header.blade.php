@@ -17,7 +17,7 @@
 
 <div id="page-content-wrapper">
     <!-- Top navigation-->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom sticky-top">
         <div class="container-fluid">
             <button class="btn btn-primary" id="sidebarToggle">
                 <i class="bi bi-list"></i>
@@ -81,7 +81,22 @@
         </div>
     </nav>
     <!-- Page content-->
-    <div class="container-fluid">
+    <div class="container-fluid p-4">
+        <div class="">
+            @if ($message = Session::get('warning'))
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>{{ $message }}</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+
+            @if ($message = Session::get('info'))
+                <div class="alert alert-info alert-dismissible fade show" role="alert">
+                    <strong>{{ $message }}</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+        </div>
         @yield('content')
     </div>
 </div>

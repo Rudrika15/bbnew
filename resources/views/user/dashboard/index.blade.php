@@ -4,7 +4,7 @@
 
 
     <div class='container'>
-        <div class='row pt-5'>
+        <div class='row'>
             <div class='col-md-12'>
                 <h1>My Account</h1>
             </div>

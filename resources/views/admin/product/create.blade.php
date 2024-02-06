@@ -2,7 +2,7 @@
 @section('title', 'Brand beans | Create Product')
 @section('content')
     <div class='container'>
-        <div class='row pt-5'>
+        <div class='row'>
             <div class='col-md-12'>
                 <div class="d-flex justify-content-between mb-3">
                     <div class="p-2">
@@ -46,8 +46,8 @@
                                     </div>
                                 </div>
                                 <!-- <div class="box-content" style="width: 200px;">
-                                                    <input type="file" id="input-file-now-custom-1" class="dropify" name="iconPath" data-default-file="http://placehold.it/1000x667" />
-                                                </div> -->
+                                                        <input type="file" id="input-file-now-custom-1" class="dropify" name="iconPath" data-default-file="http://placehold.it/1000x667" />
+                                                    </div> -->
                             </div>
 
                             <div class="text-center my-3">

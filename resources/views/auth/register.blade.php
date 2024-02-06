@@ -99,7 +99,7 @@
                 </div>
 
                 <br>
-                <div class=" Business box" style="display: none;">
+                <div class="mb-3 Business box" style="display: none;">
                     <select name="category" id="category" class="form-control">
                         <option selected disabled>Select Category</option>
                         @foreach ($categories as $data)
@@ -136,6 +136,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->
     <script src="{{ asset('js/scripts.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
     <script>
         $(document).ready(function() {
@@ -152,11 +153,9 @@
     <!-- user type hide and show code -->
     <script>
         $(document).ready(function() {
-            $('input class="form-control" [type = "radio"]').click(function() {
-                var input = "form-control"
-                Value = $(this).attr("value");
-                var targetBox = $("." + input class = "form-control"
-                    Value);
+            $('input[type="radio"]').click(function() {
+                var inputValue = $(this).attr("value");
+                var targetBox = $("." + inputValue);
                 $(".box").not(targetBox).hide();
                 $(targetBox).show();
             });
