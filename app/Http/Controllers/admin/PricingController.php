@@ -178,6 +178,7 @@ class PricingController extends Controller
         $points = new BrandPoints();
         $points->userId = Auth::user()->id;
         $points->email = Auth::user()->email;
+        // pending
         $points->points = $packagePoints->points;
         if ($hasPackage > 0)
             $points->remark = "Renew Package";
