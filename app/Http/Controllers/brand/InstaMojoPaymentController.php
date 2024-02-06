@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Validator;
 use App\Models\IMPGPayment;
+use Exception;
 use Illuminate\Support\Facades\Auth;
 
 class InstaMojoPaymentController extends Controller

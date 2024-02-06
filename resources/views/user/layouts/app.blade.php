@@ -3,7 +3,7 @@
     {{ url()->current() }}
     {{ url()->full() }} --}}
 
-    <a class="list-group-item list-group-item-action list-group-item-light p-3 href="{{ route('user.dashboard') }}">
+    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{{ route('user.dashboard') }}">
         <i class="bi bi-speedometer"></i> Dashboard
     </a>
     <a class="list-group-item list-group-item-action list-group-item-light p-3 " href="{{ route('profile') }}">
@@ -33,4 +33,4 @@
     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{{ route('pricing.index') }}">
         <i class="bi bi-piggy-bank-fill"></i> Pricing
     </a>
-</div>
+</div>`
