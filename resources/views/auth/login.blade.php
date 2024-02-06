@@ -27,8 +27,7 @@
                 @csrf
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Email address</label>
-                    <input type="email" name="email" class="form-control" id="exampleInputEmail1"
-                        aria-describedby="emailHelp">
+                    <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                     <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
                     @error('email')
                         <span class="text-danger">{{ $message }}</span>
@@ -36,24 +35,25 @@
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Password</label>
-                    <input type="password" id="password" name="password" class="form-control"
-                        id="exampleInputPassword1">
+                    <input type="password" id="password" name="password" class="form-control" id="exampleInputPassword1">
                     @error('password')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
-                <div class="mb-3 form-check">
-                    <input type="checkbox" id="checkbox"><small class="text-primary">Show password</small>
+                <div class="mb-3  d-flex justify-content-between">
+                    <div class="">
+                        <input type="checkbox" id="checkbox"><small class="text-primary">Show password</small>
+                    </div>
 
                     @if (Route::has('password.request'))
-                        <div class="text-end"><a href="{{ route('password.request') }}" class="a-link"><i
-                                    class="fa fa-unlock-alt"></i>Forgot password?</a></div>
+                        <div class="text-end"><a href="{{ route('password.request') }}" class="a-link"><i class="fa fa-unlock-alt"></i>Forgot password?</a></div>
                     @endif
                 </div>
 
-
-
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <div class="d-flex justify-content-between">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <a href="{{ route('register') }}" class="a-link"><i class="fa fa-user-plus"></i>Register</a>
+                </div>
             </form>
         </div>
     </div>
@@ -61,8 +61,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->
     <script src="{{ asset('js/scripts.js') }}"></script>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
     <script type='text/javascript'>
         $(document).ready(function() {
