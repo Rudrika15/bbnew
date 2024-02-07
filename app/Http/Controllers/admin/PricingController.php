@@ -26,7 +26,8 @@ class PricingController extends Controller
     {
         try {
             // return $freepack;
-            $subpack = Subscriptionpackage::orderBy('id', 'DESC')->get();
+            // $subpack = Subscriptionpackage::orderBy('id', 'DESC')->get();
+            $subpack = BrandPackage::with('brandPackageDetails.activity')->orderBy('id', 'DESC')->get();
             $user = User::where('id', '=', Auth::user()->id)->first();
             return view('user.pricing.index', compact('user', 'subpack'));
         } catch (\Throwable $th) {
