@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\brand\BrandOfferController;
 use App\Http\Controllers\brand\BrandPackageController;
 use App\Http\Controllers\brand\BrandPackageDetailController;
 use App\Http\Controllers\brand\CampaignController;
@@ -44,17 +45,17 @@ Route::post('brand/campaign/step/update', [CampaignStepController::class, 'updat
 Route::get('brand/campaign/step/delete/{id?}', [CampaignStepController::class, 'delete'])->name('brand.campaign.step.delete');
 
 // brand Packages
-Route::get('admin/brand/package/index', [BrandPackageController::class, 'index'])->name('admin.brand.package.index');
-Route::get('admin/brand/package/create', [BrandPackageController::class, 'create'])->name('admin.brand.package.create');
-Route::post('admin/brand/package/store', [BrandPackageController::class, 'store'])->name('admin.brand.package.store');
-Route::get('admin/brand/package/edit/{id?}', [BrandPackageController::class, 'edit'])->name('admin.brand.package.edit');
-Route::post('admin/brand/package/update', [BrandPackageController::class, 'update'])->name('admin.brand.package.update');
-Route::get('admin/brand/package/delete/{id?}', [BrandPackageController::class, 'destroy'])->name('admin.brand.package.delete');
+Route::get('admin/package/index', [BrandPackageController::class, 'index'])->name('admin.brand.package.index');
+Route::get('admin/package/create', [BrandPackageController::class, 'create'])->name('admin.brand.package.create');
+Route::post('admin/package/store', [BrandPackageController::class, 'store'])->name('admin.brand.package.store');
+Route::get('admin/package/edit/{id?}', [BrandPackageController::class, 'edit'])->name('admin.brand.package.edit');
+Route::post('admin/package/update', [BrandPackageController::class, 'update'])->name('admin.brand.package.update');
+Route::get('admin/package/delete/{id?}', [BrandPackageController::class, 'destroy'])->name('admin.brand.package.delete');
 
 // brand package details
-Route::get('admin/brand/package/detail/index/{id?}', [BrandPackageDetailController::class, 'index'])->name('admin.brand.package.detail.index');
-Route::post('admin/brand/package/detail/store', [BrandPackageDetailController::class, 'store'])->name('admin.brand.package.detail.store');
-Route::get('admin/brand/package/detail/delete/{id?}', [BrandPackageDetailController::class, 'delete'])->name('admin.brand.package.detail.delete');
+Route::get('admin/package/detail/index/{id?}', [BrandPackageDetailController::class, 'index'])->name('admin.brand.package.detail.index');
+Route::post('admin/package/detail/store', [BrandPackageDetailController::class, 'store'])->name('admin.brand.package.detail.store');
+Route::get('admin/package/detail/delete/{id?}', [BrandPackageDetailController::class, 'delete'])->name('admin.brand.package.detail.delete');
 
 Route::get('brand/pricing', [BrandPackageDetailController::class, 'pricingView'])->name('brand.pricing');
 
@@ -67,3 +68,12 @@ Route::group(['prefix' => 'instamojopayments'], function () {
 Route::get('brand/influencerList', [CampaignController::class, 'influencerList'])->name('brand.influencerList');
 Route::get('brand/influencerList/profile/{id?}/{userId?}', [CampaignController::class, 'influencerProfile'])->name('brand.influencerProfile');
 Route::post('brand/influencerPointCode', [CampaignController::class, 'influencerContactPoint'])->name('brand.influencerContactPoint');
+
+
+// offers
+Route::get('brand/offers', [BrandOfferController::class, 'index'])->name('brand.offers');
+Route::get('brand/offers/create', [BrandOfferController::class, 'create'])->name('brand.offers.create');
+Route::post('brand/offers/store', [BrandOfferController::class, 'store'])->name('brand.offers.store');
+Route::get('brand/offers/edit/{id?}', [BrandOfferController::class, 'edit'])->name('brand.offers.edit');
+Route::post('brand/offers/update', [BrandOfferController::class, 'update'])->name('brand.offers.update');
+Route::get('brand/offers/delete/{id?}', [BrandOfferController::class, 'destroy'])->name('brand.offers.delete');

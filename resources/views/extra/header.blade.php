@@ -101,9 +101,6 @@
     </div>
 </div>
 
-
-
-
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var selectedRole = localStorage.getItem('selectedRole');

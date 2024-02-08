@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\OtpController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,4 +30,13 @@ Route::group(['middleware' => ['auth']], function () {
     Route::prefix('/')->group(__DIR__ . '/reseller/resellerRoute.php');
 
     Route::get('/fetch-layout', [App\Http\Controllers\HomepageController::class, 'fetchLayout'])->name('fetch-layout');
+});
+
+// OTP 
+
+Route::controller(OtpController::class)->group(function () {
+    Route::get('loginn', 'login')->name('otp.login');
+    Route::get('auth/checkotp', 'checkotp')->name('auth.checkotp');
+    Route::post('auth/loginotp/{id?}', 'loginotp')->name('auth.loginotp');
+    Route::post('otp/generate', 'generate')->name('otp.generate');
 });

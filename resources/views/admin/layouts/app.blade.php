@@ -1,4 +1,4 @@
-`<div class="list-group list-group-flush h-100">
+<div class="list-group list-group-flush h-100">
     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{{ route('admin.dashboard') }}">
         <i class="bi bi-speedometer"></i> Dashboard
     </a>
@@ -70,7 +70,7 @@
         <i class="bi bi-wallet2"></i> Reseller Payments
     </a>
     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{{ route('admin.brand.package.index') }}">
-        <i class="bi bi-box2-heart"></i> Brand Packages
+        <i class="bi bi-box2-heart"></i> Packages
     </a>
 
     {{-- Extra --}}
@@ -96,9 +96,9 @@
     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{{ route('adminsubscription.index') }}">
         <i class="bi bi-people-fill"></i> Our Users
     </a>
-    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#">
+    {{-- <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#">
         <i class="bi bi-list-check"></i> Subscription Package
-    </a>
+    </a> --}}
     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{{ route('writer.designer.report') }}">
         <i class="bi bi-person-workspace"></i> Writer/Designer
     </a>

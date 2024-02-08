@@ -1,15 +1,15 @@
 @extends('extra.master')
-@section('title', 'Brand beans | Brand Packages ')
+@section('title', 'Brand beans | Packages ')
 @section('content')
     <div class='container'>
         <div class='row'>
             <div class='col-md-12'>
                 <div class="d-flex justify-content-between mb-3">
                     <div class="p-2">
-                        <h3>Brand Packages </h3>
+                        <h3>Packages </h3>
                     </div>
                     <div class="p-2">
-                        <a href="{{ route('admin.brand.package.create') }}" class="btn btn-primary btn-sm">Add Brand Packages</a>
+                        <a href="{{ route('admin.brand.package.create') }}" class="btn btn-primary btn-sm">Add Packages</a>
                     </div>
                 </div>
             </div>

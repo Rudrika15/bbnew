@@ -31,7 +31,7 @@
                                             <div class="row">
                                                 <div class="col-md-4 border-end">
                                                     <h4 class="card-title"> {{ $data->title }}</h4>
-                                                    <img src="{{ asset('campaignPhoto') }}/{{ $data->photo }}" alt="image" style="width: 300px; height: 200px; border-radius: 10px;">
+                                                    <img src="{{ asset('campaignPhoto') }}/{{ $data->photo }}" alt="image" class="img-thumbnail w-100">
 
                                                     <h4 class="card-subtitle mb-2 text-success">
                                                         &#8377; {{ $data->price }}

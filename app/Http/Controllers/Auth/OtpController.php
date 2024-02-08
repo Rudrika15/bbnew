@@ -110,12 +110,12 @@ class OtpController extends Controller
 
                     Auth::login($user);
                     // return Auth::user()->role;
-                    if ($user->hasRole(['Admin'])) {
-                        return \redirect('/home');
-                    } else if ($user->hasRole(['User', 'Writer', 'Designer'])) {
+                    return redirect("/user/dashboard");
+                    // if ($user->hasRole(['Admin'])) {
+                    //     return \redirect('/');
+                    // } else if ($user->hasRole(['User', 'Writer', 'Designer'])) {
 
-                        return redirect("/dashboard");
-                    }
+                    // }
                 } elseif ($links) {
 
                     $card_id =  $links->card_id;
@@ -130,13 +130,13 @@ class OtpController extends Controller
                         Auth::login($user);
 
                         // return Auth::user()->role;
-                        if ($user->hasRole(['Admin'])) {
+                        return \redirect('/user/dashboard');
+                        // if ($user->hasRole(['Admin'])) {
 
-                            return \redirect('/home');
-                        } else if ($user->hasRole(['User', 'Writer', 'Designer'])) {
+                        // } else if ($user->hasRole(['User', 'Writer', 'Designer'])) {
 
-                            return redirect("/dashboard");
-                        }
+                        //     return redirect("/");
+                        // }
                     } else {
                         session_start();
                         $_SESSION['mobileno'] = $mobileno;

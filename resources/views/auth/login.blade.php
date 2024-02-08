@@ -55,6 +55,9 @@
                     <a href="{{ route('register') }}" class="a-link"><i class="fa fa-user-plus"></i>Register</a>
                 </div>
             </form>
+            <div class="pt-4">
+                <a href="{{ route('otp.login') }}" class="a-link"><i class="fa fa-user-plus"></i>Login with OTP</a>
+            </div>
         </div>
     </div>
     <!-- Bootstrap core JS-->

@@ -24,7 +24,7 @@
         <i class="bi bi-list-nested"></i> Point Log
     </a>
 
-    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#">
+    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{{ route('brand.offers') }}">
         <i class="bi bi-bookmark-heart"></i> Brand Offer
     </a>
 </div>
