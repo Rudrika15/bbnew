@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\OtpController;
+use App\Http\Controllers\HomepageController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -40,3 +41,12 @@ Route::controller(OtpController::class)->group(function () {
     Route::post('auth/loginotp/{id?}', 'loginotp')->name('auth.loginotp');
     Route::post('otp/generate', 'generate')->name('otp.generate');
 });
+
+Route::get('/influencer', [HomepageController::class, 'influencer'])->name('main.influencer');
+Route::get('/influencer/profile/{id?}', [HomepageController::class, 'influencerProfileView'])->name('main.influencer.profile');
+
+Route::get('/about', [HomepageController::class, 'about'])->name('about');
+Route::get('/contact', [HomepageController::class, 'contact'])->name('contact');
+Route::get('/privacy', [HomepageController::class, 'privacy'])->name('privacy');
+Route::get('/refund', [HomepageController::class, 'refund'])->name('refund');
+Route::get('/term', [HomepageController::class, 'term'])->name('term');

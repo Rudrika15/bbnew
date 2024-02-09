@@ -18,30 +18,26 @@ class HomepageController extends Controller
 {
     //
 
-    public function homepage()
-    {
-        return view('wcard.homepage');
-    }
 
     function about()
     {
-        return view('otherpages.about');
+        return view('extra.otherpages.about');
     }
     function contact()
     {
-        return view('otherpages.contact');
+        return view('extra.otherpages.contact');
     }
     function privacy()
     {
-        return view('otherpages.privacy');
+        return view('extra.otherpages.privacy');
     }
     function refund()
     {
-        return view('otherpages.refund');
+        return view('extra.otherpages.refund');
     }
     function term()
     {
-        return view('otherpages.terms');
+        return view('extra.otherpages.terms');
     }
 
     function menu()
@@ -75,7 +71,7 @@ class HomepageController extends Controller
                 })->with('influencer')->get();
                 // return "none filtered";
             }
-            return view('layout.influencer', \compact('influencers', 'category'));
+            return view('extra.influencer', \compact('influencers', 'category'));
         } catch (\Throwable $th) {
             throw $th;
         }

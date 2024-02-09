@@ -31,6 +31,7 @@
                                     <div class="col-md-4">
                                         <label for="image"></label>
                                         <img src="{{ url('images/default.jpg') }}" alt="{{ __('main image') }}" id="img1" style='min-height:100px;min-width:100px;max-height:100px;max-width:100px'>
+
                                     </div>
                                 </div>
                             </div>
