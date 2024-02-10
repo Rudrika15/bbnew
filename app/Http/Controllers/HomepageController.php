@@ -40,12 +40,6 @@ class HomepageController extends Controller
         return view('extra.otherpages.terms');
     }
 
-    function menu()
-    {
-        $user = Auth::user()->id;
-        $balance = BrandPoints::where('userId', '=', $user)->get();
-        return view('layouts.app', \compact('balance'));
-    }
 
     public function influencer(Request $request)
     {
