@@ -98,21 +98,22 @@
                                         </div>
                                     </div>
                                 </div>
-                                @if (!Auth::user()->hasRole('Influencer'))
-                                    <div class="col-md-6 pb-1">
-                                        <div class="row">
-                                            <div class="col-md-4"><label>Logo:</label></div>
-                                            <div class="col-md-5">
-                                                <input type="file" class="form-control " id="logo" name="logo">
-                                                @if ($errors->has('logo'))
-                                                    <span class="text-danger">{{ $errors->first('logo') }}</span>
-                                                @endif
-                                            </div>
-                                            <div class="col-md-2">
-                                                <img src="{{ url('cardlogo') }}/{{ $details->logo }}" class="img-fluid" alt="Responsive image">
-                                            </div>
+
+                                <div class="col-md-6 pb-1">
+                                    <div class="row">
+                                        <div class="col-md-4"><label>Logo:</label></div>
+                                        <div class="col-md-5">
+                                            <input type="file" class="form-control " id="logo" name="logo">
+                                            @if ($errors->has('logo'))
+                                                <span class="text-danger">{{ $errors->first('logo') }}</span>
+                                            @endif
+                                        </div>
+                                        <div class="col-md-2">
+                                            <img src="{{ url('cardlogo') }}/{{ $details->logo }}" class="img-fluid" alt="Responsive image">
                                         </div>
                                     </div>
+                                </div>
+                                @if (!Auth::user()->hasRole('Influencer'))
                                 @endif
 
                                 <div class="col-md-6 pb-1">

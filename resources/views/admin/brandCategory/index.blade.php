@@ -23,6 +23,7 @@
                             <thead>
                                 <tr>
                                     <th> Name</th>
+                                    <th> Icons</th>
                                     <th> Action</th>
                                 </tr>
                             </thead>
@@ -30,6 +31,7 @@
                                 @foreach ($brandCategory as $data)
                                     <tr>
                                         <td>{{ $data->categoryName }}</td>
+                                        <td><img src="{{ asset('brandCategoryIcon') }}/{{ $data->icon }}" alt="{{ __('main image') }}" style='min-height:100px;min-width:100px;max-height:100px;max-width:100px'></td>
                                         <td>
                                             <a class="btn btn-primary btn-sm" href="{{ route('brand.category.edit') }}/{{ $data->id }}">Edit</a>
                                             <a class="btn btn-danger btn-sm" href="{{ route('brand.category.delete') }}/{{ $data->id }}">Delete</a>

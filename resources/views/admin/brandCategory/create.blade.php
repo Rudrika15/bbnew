@@ -20,7 +20,7 @@
                     <div class="card-body">
 
 
-                        <form action="{{ route('brand.category.store') }}" method="post">
+                        <form action="{{ route('brand.category.store') }}" enctype="multipart/form-data" method="post">
                             @csrf
                             <div class="mb-3">
                                 <label for="" class="form-label">Name</label><span class="text-danger">*</span>
@@ -29,6 +29,37 @@
                                     <span class="text-danger">{{ $errors->first('categoryName') }}</span>
                                 @endif
                             </div>
+
+                            <div class="mb-3">
+                                <label for="exampleInputPassword1" class="form-label">Icon</label> <span class="text-danger">*</span>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <input type="file" accept='image/*' onchange="readURL(this,'#img1')" class="form-control" id="image" name="icon">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="image"></label>
+                                        <img src="{{ url('images/default.jpg') }}" alt="{{ __('main image') }}" id="img1" style='min-height:100px;min-width:100px;max-height:100px;max-width:100px'>
+
+                                    </div>
+                                </div>
+                                @if ($errors->has('icon'))
+                                    <span class="text-danger">{{ $errors->first('icon') }}</span>
+                                @endif
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputPassword1" class="form-label">Poster</label>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <input type="file" accept='image/*' onchange="readURL(this,'#img1')" class="form-control" id="image" name="poster">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="image"></label>
+                                        <img src="{{ url('images/default.jpg') }}" alt="{{ __('main image') }}" id="img1" style='min-height:100px;min-width:100px;max-height:100px;max-width:100px'>
+
+                                    </div>
+                                </div>
+                            </div>
+
                             <div style="padding-top: 10px; display: flex; justify-content: center;">
 
                                 <button type="submit" class="btn btn-success btn-sm">Submit</button>
@@ -41,5 +72,16 @@
         </div>
     </div>
 
+    <script>
+        function readURL(input, tgt) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    document.querySelector(tgt).setAttribute("src", e.target.result);
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
 
 @endsection

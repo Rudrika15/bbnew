@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BrandCategory;
+use App\Models\BrandOffer;
 use App\Models\BrandPoints;
+use App\Models\BrandWithCategory;
 use App\Models\Category;
 use App\Models\CategoryInfluencer;
 use App\Models\InfluencerProfile;
@@ -79,7 +82,7 @@ class HomepageController extends Controller
                 ->orderBy('id', 'DESC')
                 ->first();
             $influencer = User::where('id', '=', $id)->with('influencerPackage')->with('card')->first();
-            return view('influencerprofile', \compact('profile', 'influencer'));
+            return view('extra.influencerProfile', \compact('profile', 'influencer'));
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -126,5 +129,32 @@ class HomepageController extends Controller
         } else {
             return view('user.layouts.app');
         }
+    }
+    public function brandOffer()
+    {
+        $offerCategory = BrandCategory::take(9)->get();
+        $brandLogos = User::whereHas('roles', function ($q) {
+            $q->where('name', 'Brand');
+        })->with('card')->get();
+        return view('extra.brandOffer', compact('offerCategory', 'brandLogos'));
+    }
+
+    public function getOffer($categoryId)
+    {
+        // return  $brandLogos = User::whereHas('roles', function ($q) {
+        //     $q->where('name', 'Brand');
+        // })->get('id');
+        $category = BrandCategory::find($categoryId);
+        $offers = BrandWithCategory::where('brandcategoryId', $categoryId)
+            ->with('brand.card.cardPortfolio')->with('offer')->get();
+        return view('extra.brandOfferDetail', \compact('offers', 'category'));
+    }
+
+    public function brandDetail($id, $category)
+    {
+        $brandCategory = BrandCategory::find($category);
+        $brand = User::where('id', $id)->with('card.cardPortfolio')->with('brand')->first();
+        $offers = BrandOffer::where('userId', $id)->get();
+        return view('extra.brandDetail', \compact('brand', 'brandCategory', 'offers'));
     }
 }

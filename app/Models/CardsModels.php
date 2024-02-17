@@ -14,7 +14,7 @@ class CardsModels extends Model
 
     public function categoryDetails()
     {
-        return $this->hasOne(Category::class('id', 'category'));
+        return $this->belongsTo(Category::class, 'category', 'id');
     }
 
     public function linksData()

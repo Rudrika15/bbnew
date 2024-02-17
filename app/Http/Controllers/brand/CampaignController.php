@@ -66,15 +66,21 @@ class CampaignController extends Controller
 
         if ($user->package != "FREE") {
             try {
-                $brandPackage = BrandPoints::where('userId', '=', $user->id)->first();
-                $package = BrandPackage::where('points', $brandPackage->points)->first();
 
-                $packageDetailData = BrandPackageDetail::where('brandPackageId', $package->id)->first();
-                $activity = Activity::where('id', $packageDetailData->activityId)->first();
-                $point = BrandPackageDetail::where('brandPackageId', $package->id)
-                    ->where('activityId', $activity->id)
-                    ->first('points');
-                return view('brand.campaign.create', \compact('point'));
+                $brandPackageSum = BrandPoints::where('userId', '=', $user->id)->sum('points');
+                if ($brandPackageSum > 0) {
+                    $brandPackage = BrandPoints::where('userId', '=', $user->id)->first();
+                    $package = BrandPackage::where('points', $brandPackage->points)->first();
+
+                    $packageDetailData = BrandPackageDetail::where('brandPackageId', $package->id)->first();
+                    $activity = Activity::where('id', $packageDetailData->activityId)->first();
+                    $point = BrandPackageDetail::where('brandPackageId', $package->id)
+                        ->where('activityId', $activity->id)
+                        ->first('points');
+                    return view('brand.campaign.create', \compact('point'));
+                } else {
+                    return redirect()->back()->with('warning', 'You dont have a enough points to create a campaign please renew your package');
+                }
             } catch (\Throwable $th) {
                 throw $th;
             }

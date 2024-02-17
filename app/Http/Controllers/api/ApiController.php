@@ -53,6 +53,7 @@ use App\Models\BrandPackageDetail;
 use App\Models\BrandPoints;
 use App\Models\ContactInfluencer;
 use App\Models\IMPGPayment;
+use App\Models\BrandOffer;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
@@ -4164,5 +4165,115 @@ class ApiController extends Controller
             ];
         }
         return response($response, 200);
+    }
+
+    public function brandOfferList($userId)
+    {
+        $offer = BrandOffer::where('userId', '=', $userId)->get();
+        $response = [
+            'status' => 200,
+            'message' => 'brand offer data',
+            'data' => $offer,
+        ];
+
+        return response($response, 200);
+    }
+    public function brandOfferCreate(Request $request)
+    {
+        $rules = array(
+            'userId' => 'required',
+            'title' => 'required',
+            'description' => 'required',
+            'offerPhoto' => 'required',
+            'offerPrice' => 'required|numeric',
+            'location' => 'required',
+            'validity' => 'required',
+            'termsAndConditions' => 'required',
+        );
+
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return $validator->errors();
+        }
+
+        $offer = new BrandOffer();
+        $offer->userId = $request->userId;
+        $offer->title = $request->title;
+        $offer->description = $request->description;
+        $offer->offerPhoto = time() . '.' . $request->offerPhoto->extension();
+        $request->offerPhoto->move(public_path('offerPhoto'), $offer->offerPhoto);
+        $offer->offerPrice = $request->offerPrice;
+        $offer->location = $request->location;
+        $offer->validity = $request->validity;
+        $offer->termsAndConditions = $request->termsAndConditions;
+        $offer->save();
+
+        $response = [
+            'status' => 201,
+            'message' => 'offer added',
+            'data' => $offer,
+            'image path' => asset('offerPhoto/' . $offer->offerPhoto),
+        ];
+        return response($response, 201);
+    }
+    public function brandOfferUpdate($id, Request $request)
+    {
+        // $rules = array(
+        //     'title' => 'required',
+        //     'description' => 'required',
+        //     'offerPrice' => 'required|numeric',
+        //     'location' => 'required',
+        //     'validity' => 'required',
+        //     'termsAndConditions' => 'required',
+        // );
+
+        // $validator = Validator::make($request->all(), $rules);
+        // if ($validator->fails()) {
+        //     return $validator->errors();
+        // }
+
+        $offer = BrandOffer::find($id);
+        $offer->title = $request->title;
+        $offer->description = $request->description;
+        if ($request->offerPhoto) {
+            $offer->offerPhoto = time() . '.' . $request->offerPhoto->extension();
+            $request->offerPhoto->move(public_path('offerPhoto'), $offer->offerPhoto);
+        }
+        $offer->offerPrice = $request->offerPrice;
+        $offer->location = $request->location;
+        $offer->validity = $request->validity;
+        $offer->termsAndConditions = $request->termsAndConditions;
+        $offer->save();
+
+        $response = [
+            'status' => 201,
+            'message' => 'offer updated',
+            'data' => $offer,
+            'image path' => asset('offerPhoto/' . $offer->offerPhoto),
+        ];
+        return response($response, 201);
+    }
+
+    public function brandOfferDelete($id)
+    {
+        $offer = BrandOffer::find($id);
+        if ($offer) {
+
+            $offer->delete();
+            $response = [
+                'status' => 200,
+                'message' => "offer Deleted successfully",
+                'data' => $offer,
+            ];
+
+            return response($response, 200);
+        } else {
+            $response = [
+                'status' => 200,
+                'message' => "offer is not found",
+            ];
+
+            return response($response, 200);
+        }
     }
 }

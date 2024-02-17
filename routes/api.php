@@ -368,3 +368,11 @@ Route::get('/route-cache', function () {
     Artisan::call('route:cache');
     return 'Routes cache has been cleared';
 });
+
+
+// brandOffer crud
+
+Route::get('/brand-offer-list/{id?}', [ApiController::class, 'brandOfferList']);
+Route::post('/brand-offer-store', [ApiController::class, 'brandOfferCreate']);
+Route::post('/brand-offer-edit/{id?}', [ApiController::class, 'brandOfferUpdate']);
+Route::get('/brand-offer-delete/{id?}', [ApiController::class, 'brandOfferDelete']);

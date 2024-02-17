@@ -21,11 +21,16 @@ class BrandCategoryController extends Controller
     {
         $this->validate(request(), [
             'categoryName' => 'required',
+            'icon' => 'required',
         ]);
         $brandCategory = new BrandCategory();
         $brandCategory->categoryName = $request->categoryName;
+        $brandCategory->icon = time() . '.' . $request->icon->extension();
+        $request->icon->move(public_path('brandCategoryIcon'), $brandCategory->icon);
+        $brandCategory->poster = time() . '.' . $request->poster->extension();
+        $request->poster->move(public_path('brandCategoryPoster'), $brandCategory->poster);
         $brandCategory->save();
-        return redirect()->route('admin.brandCategory.index')->with('success', 'Brand Category Created Successfully');
+        return redirect('brand/category/index')->with('success', 'Brand Category Created Successfully');
     }
     public function edit($id)
     {
@@ -39,13 +44,21 @@ class BrandCategoryController extends Controller
         ]);
         $brandCategory = BrandCategory::find($request->brandCategoryId);
         $brandCategory->categoryName = $request->categoryName;
+        if ($request->icon) {
+            $brandCategory->icon = time() . '.' . $request->icon->extension();
+            $request->icon->move(public_path('brandCategoryIcon'), $brandCategory->icon);
+        }
+        if ($request->poster) {
+            $brandCategory->poster = time() . '.' . $request->poster->extension();
+            $request->poster->move(public_path('brandCategoryPoster'), $brandCategory->poster);
+        }
         $brandCategory->save();
-        return redirect()->route('admin.brandCategory.index')->with('success', 'Brand Category Updated Successfully');
+        return redirect('brand/category/index')->with('success', 'Brand Category Updated Successfully');
     }
     public function delete($id)
     {
         $brandCategory = BrandCategory::find($id);
         $brandCategory->delete();
-        return redirect()->route('admin.brandCategory.index')->with('success', 'Brand Category Deleted Successfully');
+        return redirect('brand/category/index')->with('success', 'Brand Category Deleted Successfully');
     }
 }

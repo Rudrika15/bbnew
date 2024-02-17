@@ -5,13 +5,14 @@ namespace App\Http\Controllers\brand;
 use App\Http\Controllers\Controller;
 use App\Models\BrandOffer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BrandOfferController extends Controller
 {
 
     public function index()
     {
-        $offers = BrandOffer::all();
+        $offers = BrandOffer::where('userId', Auth::user()->id)->get();
         return view('brand.offers.index', compact('offers'));
     }
 

@@ -14,4 +14,14 @@ class BrandWithCategory extends Model
     {
         return $this->belongsTo(BrandCategory::class, 'brandCategoryId', 'id');
     }
+
+    function brand()
+    {
+        return $this->belongsTo(User::class, 'brandId', 'id');
+    }
+
+    function offer()
+    {
+        return $this->hasMany(BrandOffer::class, 'userId', 'brandId');
+    }
 }
