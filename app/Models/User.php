@@ -112,4 +112,8 @@ class User extends Authenticatable
     {
         return $this->hasOne(CardsModels::class, 'user_id', 'id');
     }
+    function offer()
+    {
+        return $this->hasMany(BrandOffer::class, 'userId', 'id');
+    }
 }

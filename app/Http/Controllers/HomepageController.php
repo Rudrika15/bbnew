@@ -16,6 +16,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class HomepageController extends Controller
 {
@@ -155,6 +156,14 @@ class HomepageController extends Controller
         $brandCategory = BrandCategory::find($category);
         $brand = User::where('id', $id)->with('card.cardPortfolio')->with('brand')->first();
         $offers = BrandOffer::where('userId', $id)->get();
+        $recommendedOffers = BrandOffer::where('userId', $id)->take(3)->get();
         return view('extra.brandDetail', \compact('brand', 'brandCategory', 'offers'));
+    }
+
+    public function qrCode($offerId)
+    {
+        $offer = BrandOffer::find($offerId);
+        $offerData = json_encode($offer);
+        return QrCode::generate($offerData);
     }
 }

@@ -160,7 +160,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6 text-end align-self-center">
-                                                    <button class="btn btn-info">Buy Now</button>
+                                                    <a href="{{ route('qrCode') }}/{{ $offer->id }}" class="btn btn-blue text-white"> Buy Offer +</a>
                                                 </div>
                                             </div>
                                         </div>

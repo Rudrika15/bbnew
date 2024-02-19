@@ -51,6 +51,9 @@ Route::get('/brand/offer', [HomepageController::class, 'brandOffer'])->name('mai
 Route::get('/brand/offers/{categoryId?}', [HomepageController::class, 'getOffer'])->name('brand.offer');
 Route::get('/brand/detail/{id?}/{category?}', [HomepageController::class, 'brandDetail'])->name('brand.detail');
 
+// qr code
+Route::get('/getQr/{offerId?}', [HomepageController::class, 'qrCode'])->name('qrCode');
+
 
 Route::get('/about', [HomepageController::class, 'about'])->name('about');
 Route::get('/contact', [HomepageController::class, 'contact'])->name('contact');
