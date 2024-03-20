@@ -4,6 +4,7 @@ namespace App\Http\Controllers\brand;
 
 use App\Http\Controllers\Controller;
 use App\Models\BrandOffer;
+use App\Models\MyOfferQrCodes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -32,8 +33,9 @@ class BrandOfferController extends Controller
             'validity' => 'required',
             'termsAndConditions' => 'required',
         ]);
-
+        $userId = Auth::user()->id;
         $offer = new BrandOffer();
+        $offer->userId = $userId;
         $offer->title = $request->title;
         $offer->description = $request->description;
         $offer->offerPhoto = time() . '.' . $request->offerPhoto->extension();
@@ -83,5 +85,11 @@ class BrandOfferController extends Controller
     {
         BrandOffer::find($id)->delete();
         return redirect()->back()->with('success', 'Offer deleted successfully');
+    }
+
+    public function myPurchaseOffer()
+    {
+        $offers = MyOfferQrCodes::where('buyerId', Auth::user()->id)->with('offer')->get();
+        return view('user.offer.offerList', compact('offers'));
     }
 }

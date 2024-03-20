@@ -6,7 +6,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <!-- Bootstrap CSS v5.2.1 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
     {{-- <link rel="stylesheet" href="{{ asset('css/style.css') }}"> --}}
@@ -70,8 +70,8 @@
                                 </div>
                                 <div class="col-md-7 ps-5 align-items-center">
                                     <div class="row">
-                                        <div class="col-md-5">
-                                            <img src="{{ asset('cardlogo') }}/{{ $brand->card->logo }}" class="posterImage" alt="">
+                                        <div class="col-md-5 align-self-center">
+                                            <img src="{{ asset('cardlogo') }}/{{ $brand->card->logo }}" class="posterImage img-fluid" alt="">
                                         </div>
                                         <div class="col-md-7">
                                             {{-- @foreach ($brand->card->cardPortfolio as $portfolio)
@@ -137,7 +137,45 @@
                         <div class="tabBlock-content">
                             <div class="tabBlock-pane">
                                 {{-- recommended --}}
-                                recommended
+                                @foreach ($recommendedOffers as $recoff)
+                                    <div class="row">
+                                        <div class="col-md-12 py-3">
+                                            <div class="row">
+
+                                                <div class="col-md-6 h-25">
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <img src="{{ asset('offerPhoto') }}/{{ $recoff->offerPhoto }}" class="img-fluid w-100 h-100" alt="">
+
+                                                        </div>
+                                                        <div class="col-md-8">
+
+                                                            <span class="ps-2">{{ $recoff->title }}</span><br>
+                                                            <small>{{ $recoff->description }}</small>
+                                                            <p class="fw-bold">₹{{ $recoff->offerPrice }}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 text-end align-self-center">
+                                                    <div class="pay-container">
+
+                                                        @if (Auth::user())
+                                                            {{-- <a href="{{ route('qrCode') }}/{{ $recoff->id }}" class="btn btn-blue text-white"> Buy Offer +</a> --}}
+                                                            <span class="amount" style="display: none;">{{ $recoff->offerPrice }}</span>
+                                                            <span class="offerId" style="display: none;">{{ $recoff->id }}</span>
+                                                            <br>
+                                                            <button class="btn btn-blue text-white pay" id="buyOffer"> Buy Offer +</button>
+                                                        @else
+                                                            <a href="{{ route('login') }}" id="buyOffer" class="btn btn-blue text-white "> Buy Offer +</a>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr>
+
+                                    </div>
+                                @endforeach
                             </div>
                             <div class="tabBlock-pane">
                                 {{-- offer --}}
@@ -156,11 +194,20 @@
 
                                                             <span class="ps-2">{{ $offer->title }}</span><br>
                                                             <small>{{ $offer->description }}</small>
+                                                            <p class="fw-bold">₹{{ $recoff->offerPrice }}</p>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6 text-end align-self-center">
-                                                    <a href="{{ route('qrCode') }}/{{ $offer->id }}" class="btn btn-blue text-white"> Buy Offer +</a>
+                                                    @if (Auth::user())
+                                                        <span class="amount" style="display: none;">{{ $recoff->offerPrice }}</span>
+                                                        <br>
+                                                        <button class="btn btn-blue text-white pay" id="buyOffer"> Buy Offer +</button>
+                                                    @else
+                                                        <a href="{{ route('login') }}" id="buyOffer" class="btn btn-blue text-white "> Buy Offer +</a>
+                                                    @endif
+                                                    {{-- <a href="{{ route('qrCode') }}/{{ $recoff->id }}" class="btn btn-blue text-white"> Buy Offerdatqa +</a> --}}
+
                                                 </div>
                                             </div>
                                         </div>
@@ -172,7 +219,7 @@
                             <div class="tabBlock-pane">
 
                                 {{-- about --}}
-                                about
+                                {!! $brand->card->about !!}
 
                             </div>
                             <div class="tabBlock-pane">
@@ -191,7 +238,7 @@
 
                 </div>
                 <div class="col-md-3 ">
-                    <div class="div-sticky-class">
+                    <div class="div-sticky-class ">
 
                         <div id="slider">
                             <span href="#" class="control_next"> <i class="bi bi-caret-right-fill"></i> </span>
@@ -394,6 +441,252 @@
 
         });
     </script>
+
+    <script>
+        $(document).ready(function() {
+            // Attach click event handler to the "Join Now" button
+            $('#buyOffer').click(function() {
+                // Store the current URL in session
+                var currentUrl = window.location.href;
+                console.log('current url', currentUrl);
+                storeCurrentUrl(currentUrl);
+
+            });
+        });
+
+        function storeCurrentUrl(url) {
+            // Make an AJAX request to store the current URL in session
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+            console.log('csrfToken', csrfToken);
+            $.ajax({
+                url: '/store-current-url',
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken // Include CSRF token in headers
+                },
+                data: {
+                    url: url
+                },
+                success: function(response) {
+                    console.log('Current URL stored in session successfully');
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error storing current URL in session: ', error);
+                }
+            });
+        }
+    </script>
+
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    @if (Auth::user())
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                // Get all elements with the 'pay-button' class
+                var payButtons = document.querySelectorAll('.pay');
+                console.log('pay', payButtons);
+                // Loop through each pay button and attach the click event handler
+                payButtons.forEach(function(button) {
+                    button.addEventListener('click', function(e) {
+                        var amountElement = button.parentElement.querySelector('.amount');
+                        var amount = parseFloat(amountElement.innerText); // Retrieve the amount value
+                        console.log('amount', amount);
+                        console.log('pay button', payButtons);
+
+                        username = "{{ Auth::user()->name }}";
+                        useremail = "{{ Auth::user()->email }}";
+                        console.log('username', username);
+
+                        var options = {
+                            "key": "{{ env('RAZORPAY_KEY') }}",
+                            "amount": amount * 100, // amount in the smallest currency unit
+                            "currency": "INR",
+                            "name": "Brandbeans",
+                            "description": "Razorpay payment",
+                            "image": "/images/logo-icon.png",
+                            "handler": function(response) {
+                                // Handle the response after payment
+                                // console.log(response);
+                                var paymentId = response.razorpay_payment_id;
+                                storePaymentId(paymentId, amount);
+
+
+                            },
+                            "prefill": {
+                                "name": username,
+                                "email": useremail
+                            },
+                            "theme": {
+                                "color": "#012e6f"
+                            }
+                        };
+
+                        var rzp = new Razorpay(options);
+                        rzp.open();
+                    });
+                });
+            });
+
+            function storePaymentId(paymentId = '', amount = '') {
+                // Make an asynchronous POST request to your server
+                var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+                fetch('/razorpay-payment', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': csrfToken,
+                        },
+                        body: JSON.stringify({
+                            paymentId: paymentId,
+                            amount: amount
+                        }),
+                    })
+                    .then(response => {
+                        // Handle the response from the server
+                        // Call generateQrCode after storing payment ID
+                        generateQrCode();
+                        console.log('Payment ID stored successfully');
+                    })
+                    .catch(error => {
+                        console.error('Error storing payment ID: ', error);
+                    });
+            }
+
+            function generateQrCode() {
+                // Make a GET request to your server with offer ID as a query parameter
+                var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                var offerElement = document.querySelector('.offerId');
+                var offerId = offerElement.innerText;
+                console.log('offerId', offerId);
+                fetch('/getQr/' + offerId, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': csrfToken,
+                        },
+                    })
+                    .then(response => {
+                        if (!response.error) {
+                            throw new Error('Network response was not ok.');
+                        }
+                        console.log('Response received successfully', response);
+                        // Handle the response from the server, e.g., save the QR code image
+                        return response.blob();
+                    })
+                    .then(blob => {
+                        // Convert blob data to URL
+                        const qrUrl = URL.createObjectURL(blob);
+                        // Do something with the QR code URL, such as displaying it on the page or downloading it
+                    })
+                    .catch(error => {
+                        console.error('Error generating QR code: ', error);
+                    });
+            }
+        </script>
+    @else
+        <script>
+            var loginUser = "{{ session('loginUser') }}";
+            console.log('loginUser', loginUser);
+            if (loginUser == 'success') {
+                setSessionVariable();
+                document.addEventListener('DOMContentLoaded', function() {
+                    // Get all elements with the 'pay-button' class
+                    var payButtons = document.querySelectorAll('.pay');
+                    console.log('pay', payButtons);
+                    // Loop through each pay button and attach the click event handler
+                    payButtons.forEach(function(button) {
+                        button.addEventListener('click', function(e) {
+                            var amountElement = document.querySelector('.amount');
+                            var amount = amountElement.innerText; // Retrieve the amount value
+                            console.log('amount', amount);
+                            console.log('pay button', payButtons);
+                            var options = {
+                                "key": "{{ env('RAZORPAY_KEY') }}",
+                                "amount": amount * 100, // amount in the smallest currency unit
+                                "currency": "INR",
+                                "name": "Brandbeans",
+                                "description": "Razorpay payment",
+                                "image": "/images/logo-icon.png",
+                                "handler": function(response) {
+                                    // Handle the response after payment
+                                    // console.log(response);
+                                    var paymentId = response.razorpay_payment_id;
+                                    storePaymentId(paymentId, amount);
+                                    setSessionVariable();
+                                },
+                                "prefill": {
+                                    "name": "abcd",
+                                    "email": "abcd@gmail.com"
+                                },
+                                "theme": {
+                                    "color": "#012e6f"
+                                }
+                            };
+
+                            var rzp = new Razorpay(options);
+                            rzp.open();
+                        });
+                    });
+                });
+
+                function storePaymentId(paymentId = '', amount = '') {
+                    // Make an asynchronous POST request to your server
+                    var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+                    fetch('/razorpay-payment', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': csrfToken,
+                            },
+                            body: JSON.stringify({
+                                paymentId: paymentId,
+                                amount: amount
+                            }),
+                        })
+                        .then(response => {
+                            // Handle the response from the server
+                            // console.log("responses", response);
+                            // console.log("paymentId", paymentId);
+
+                            console.log('Payment ID stored successfully');
+                        })
+                        .catch(error => {
+                            console.error('Error storing payment ID: ', error);
+                        });
+                }
+
+
+
+                function setSessionVariable() {
+                    // Make an asynchronous POST request to set the session variable 'loginUser' to 'remove'
+                    var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+                    fetch('/set-login-user-session', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': csrfToken,
+                            },
+                            body: JSON.stringify({
+                                loginUser: 'remove'
+                            }),
+                        })
+                        .then(response => {
+                            // Handle the response from the server
+
+                            console.log('set session');
+                        })
+                        .catch(error => {
+                            console.error('Error setting loginUser session variable: ', error);
+                        });
+                }
+            } else {
+                console.log("Not set");
+            }
+        </script>
+    @endif
+
 
 </body>
 

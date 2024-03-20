@@ -11,6 +11,7 @@ use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\admin\ManualPaymentController;
 use App\Http\Controllers\admin\MediaController;
 use App\Http\Controllers\admin\OfferController;
+use App\Http\Controllers\admin\OfferSliderController;
 use App\Http\Controllers\admin\PricingController;
 use App\Http\Controllers\admin\ProductController;
 use App\Http\Controllers\admin\RoleController as AdminRoleController;
@@ -245,3 +246,12 @@ Route::post('/updateUserPackage', [ManualPaymentController::class, 'updateUserPa
 
 // export
 Route::get('/export-users', [UserController::class, 'export'])->name('export.users');
+
+
+// offer slider
+Route::get('/offerSlider/index', [OfferSliderController::class, 'index'])->name('offerSlider.index');
+Route::get('/offerSlider/create', [OfferSliderController::class, 'create'])->name('offerSlider.create');
+Route::post('/offerSlider/store', [OfferSliderController::class, 'store'])->name('offerSlider.store');
+// Route::get('/offerSlider/edit/{id?}', [OfferSliderController::class, 'edit'])->name('offerSlider.edit');
+// Route::post('/offerSlider/update', [OfferSliderController::class, 'update'])->name('offerSlider.update');
+Route::get('/offerSlider/delete/{id?}', [OfferSliderController::class, 'destroy'])->name('offerSlider.delete');

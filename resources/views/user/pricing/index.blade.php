@@ -109,7 +109,7 @@
                             "email": "abc@gmail.com"
                         },
                         "theme": {
-                            "color": "#ff7529"
+                            "color": "#012e6f"
                         }
                     };
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use App\Mail\OtpMail;
 use App\Mail\ForgotMail;
+use App\Mail\QrCodeMail;
 use App\Models\Activity;
 use App\Models\ManualPayment;
 use App\Models\Banner;
@@ -43,6 +44,7 @@ use App\Models\InfluencerProfile;
 use App\Models\InfluencerPortfolio;
 use App\Models\CheckApply;
 use App\Models\Apply;
+use App\Models\BrandCategory;
 use App\Models\Campaign;
 use App\Models\CampaignStep;
 use App\Models\CampaignInfluencerActivity;
@@ -54,6 +56,9 @@ use App\Models\BrandPoints;
 use App\Models\ContactInfluencer;
 use App\Models\IMPGPayment;
 use App\Models\BrandOffer;
+use App\Models\BrandWithCategory;
+use App\Models\MyOfferQrCodes;
+use App\Models\OfferSlider;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
@@ -3512,6 +3517,18 @@ class ApiController extends Controller
         ];
         return response($response, 200);
     }
+    function allInfluencer()
+    {
+        $influencers = User::whereHas('roles', function ($q) {
+            $q->where('name', 'Influencer');
+        })->with('influencer')->get();
+
+        $response = [
+            'status' => 200,
+            'influencers' => $influencers,
+        ];
+        return response($response, 200);
+    }
     function influencerListById($id)
     {
 
@@ -4169,14 +4186,18 @@ class ApiController extends Controller
 
     public function brandOfferList($userId)
     {
-        $offer = BrandOffer::where('userId', '=', $userId)->get();
+        $currentDate = date('Y-m-d');
+        $offers = BrandOffer::where('userId', '=', $userId)
+            ->whereDate('validity', '>=', $currentDate)
+            ->get();
+
         $response = [
             'status' => 200,
-            'message' => 'brand offer data',
-            'data' => $offer,
+            'message' => 'Brand offer data',
+            'data' => $offers,
         ];
 
-        return response($response, 200);
+        return response()->json($response, 200);
     }
     public function brandOfferCreate(Request $request)
     {
@@ -4275,5 +4296,247 @@ class ApiController extends Controller
 
             return response($response, 200);
         }
+    }
+
+
+    // brand offer 
+
+    function offerCategoryList()
+    {
+
+        $offerList = BrandCategory::with('brand.user')->get();;
+        $response = [
+            'status' => 200,
+            'imagePath' => 'brandCategoryIcon',
+            'message' => 'brand offer data',
+            'data' => $offerList,
+        ];
+        return response($response, 200);
+    }
+    function offerCategoryBrand($categoryId)
+    {
+        $offerList = BrandCategory::where('id', $categoryId)->with('brand.offer')->get();
+        $response = [
+            'status' => 200,
+            'message' => 'brand offer data',
+            'data' => $offerList,
+        ];
+        return response($response, 200);
+    }
+
+    function purchesedOfferList($userId)
+    {
+        $data = User::where('id', $userId)->with('myOffers.offer.brand')->get();
+        // pending
+        // $data = MyOfferQrCodes::where('buyerId', $userId)
+        //     ->with('offer')
+        //     ->with('buyer', function ($q) use ($userId) {
+        //         $q->where('id', $userId);
+        //     })
+        //     ->get();
+        $response = [
+            'status' => 200,
+            'message' => 'purchesed offer data',
+            'data' => $data,
+        ];
+        return response($response, 200);
+    }
+
+
+    function purchaseBrandOffer(Request $request)
+    {
+        $rules = array(
+            'userId' => 'required',
+            'offerId' => 'required',
+            'email' => 'required',
+            'payment_id' => 'required',
+        );
+
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return $validator->errors();
+        }
+
+        $offerId = $request->offerId;
+        $offer = BrandOffer::find($offerId);
+
+        if ($offer) {
+
+            $uuid = Str::uuid();
+
+            $payment = new Razorpay();
+            $payment->payment_id = $request->payment_id;
+            $payment->user_id = $request->userId;
+            $payment->amount = $offer->offerPrice;
+            $payment->save();
+
+            $qr = new MyOfferQrCodes();
+            $qr->buyerId = $request->userId;
+            $qr->offerId = $offerId;
+            $qr->uuid = $uuid;
+            $qr->status = "Active";
+            $qr->validity = $offer->validity;
+            $qr->save();
+
+            $email = $request->email;
+            Mail::to($email)->send(new QrCodeMail($offer, $uuid));
+
+            $response = [
+                'status' => 201,
+                'data' => $qr,
+                'message' => 'offer purchased successfully and qr code sent to mail',
+            ];
+        } else {
+            $response = [
+                'status' => 200,
+                'message' => 'offer not found',
+            ];
+        }
+        return response($response, 201);
+    }
+
+    public function offerSlider()
+    {
+        $slider = OfferSlider::all();
+        $response = [
+            'status' => 200,
+            'message' => 'offer slider data',
+            'imagePath' => '/offerSlider',
+            'data' => $slider,
+        ];
+        return response($response, 200);
+    }
+
+    public function redeemQrCode(Request $request)
+    {
+        $rules = array(
+            'uuid' => 'required',
+            'userId' => 'required',
+            'offerId' => 'required',
+        );
+
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return $validator->errors();
+        }
+        $uuid = $request->uuid;
+        $userId = $request->userId;
+        $offerId = $request->offerId;
+
+        $qr = MyOfferQrCodes::where('uuid', $uuid)->where('buyerId', $userId)->where('offerId', $offerId)->first();
+        if ($qr) {
+            if ($qr->status != "Redeemed") {
+                $offervalidity = BrandOffer::find($offerId);
+                $date = carbon::now()->toDateString();
+                if ($offervalidity->validity >= $date) {
+
+                    $qr->status = "Redeemed";
+                    $qr->validity = $offervalidity->validity;
+                    $qr->offerStatus = "Deactivate";
+                    $qr->save();
+
+                    $response = [
+                        'status' => 200,
+                        'data' => $qr,
+                        'message' => 'offer redeemed successfully',
+                    ];
+                } else {
+                    $response = [
+                        'status' => 200,
+                        'message' => 'offer expire'
+                    ];
+                }
+            } else {
+                $response = [
+                    'status' => 200,
+                    'message' => 'Offer Already redeemed',
+
+                ];
+            }
+        } else {
+            $response = [
+                'status' => 200,
+                'message' => 'offer buying details not found',
+
+            ];
+        }
+        return response($response, 200);
+    }
+
+    public function offerDetail($offerId)
+    {
+        $offer = BrandOffer::with('brand')->where('id', $offerId)->first();
+        if ($offer) {
+            $respose = [
+                'status' => 200,
+                'data' => $offer,
+            ];
+        } else {
+            $respose = [
+                'status' => 200,
+                'data' => $offer
+            ];
+        }
+        return response($respose, 200);
+    }
+
+    public function offerBuyerList($brandId)
+    {
+        $brand = User::whereHas('roles', function ($q) {
+            $q->where('name', 'Brand');
+        })->where('id', $brandId)
+            ->first();
+        if ($brand) {
+
+            $offer = BrandOffer::where('userId', $brand->id)->get();
+            if (count($offer) > 0) {
+                $buyerList = [];
+
+                foreach ($offer as $key => $value) {
+                    return   $buyer = MyOfferQrCodes::where('offerId', $value->id)->with('buyer')->with('offer')->get();
+                    $buyerList[] = $buyer;
+                }
+
+                $response = [
+                    'status' => 200,
+                    'data' => $buyerList
+                ];
+            } else {
+                $response = [
+                    'status' => 200,
+                    'message' => 'brand not found'
+                ];
+            }
+        } else {
+            $response = [
+                'status' => 200,
+                'message' => 'offers not found'
+            ];
+        }
+
+        return response()->json($response, 200);
+    }
+
+    public function recommendOffers()
+    {
+        $offers = BrandOffer::all();
+
+        // Example: Filtering offers based on some condition
+        $recommendedOffers = [];
+        foreach ($offers as $offer) {
+            $offerbuy = MyOfferQrCodes::where('offerId', $offer->id)->count();
+
+            // Example condition: Recommend offers with at least 10 purchases
+            if ($offerbuy >= 5) {
+                $recommendedOffers[] = $offer;
+            }
+        }
+
+        $response = [
+            'status' => 200,
+            'data' => $recommendedOffers
+        ];
+        // Return the recommended offers as JSON response
+        return response()->json($response, 200);
     }
 }

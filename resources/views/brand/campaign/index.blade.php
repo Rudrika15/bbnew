@@ -3,7 +3,15 @@
 @section('content')
     <div class='container'>
         <!-- Add this to your Blade template -->
-
+        @if ($message = Session::get('warnings'))
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <div class="alert alert-warning" role="alert">
+                    <span style="font-weight: 600">Note:</span> {{ $message }}<span> Please update your balance clicking on
+                        <a href="{{ route('pricing.index') }}"> to upgrade your plan</a> </span>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
         <div class='row pt-5'>
             @if (session('success'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">

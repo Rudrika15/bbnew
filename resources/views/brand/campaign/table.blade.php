@@ -1,6 +1,6 @@
+
 @if (count($campaign) > 0)
     <div class="row">
-
         <div class="col-md-8">
             @foreach ($campaign as $data)
                 <div class="card">

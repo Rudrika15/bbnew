@@ -183,6 +183,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Mews\Captcha\CaptchaServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
+        SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -213,6 +214,7 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
         'Captcha' => Mews\Captcha\Facades\Captcha::class,
+        'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
     ])->toArray(),
 
 ];

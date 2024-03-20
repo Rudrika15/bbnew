@@ -19,6 +19,10 @@ class BrandWithCategory extends Model
     {
         return $this->belongsTo(User::class, 'brandId', 'id');
     }
+    function user()
+    {
+        return $this->belongsTo(User::class, 'brandId', 'id');
+    }
 
     function offer()
     {

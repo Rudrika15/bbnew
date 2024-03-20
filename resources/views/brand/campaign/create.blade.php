@@ -2,8 +2,11 @@
 @section('title', 'Brand beans | Create Campaign')
 @section('content')
     <div class='container'>
+       
         <div class='row '>
             <div class='col-md-12'>
+
+
                 <div class="d-flex justify-content-between mb-3">
                     <div class="p-2">
                         <h3>Create Campaign</h3>
@@ -21,9 +24,7 @@
 
                         <form action="{{ route('brand.campaign.store') }}" enctype="multipart/form-data" method="post" style="margin-top: 15px;">
                             @csrf
-                            <div class="alert alert-warning" role="alert">
-                                <span style="font-weight: 600">Note:</span> <span>Kindly note that per campaign create you spent <b>{{ $point->points }}</b> points as per your package</span>
-                            </div>
+
 
                             <div class="mb-3">
                                 <label for="title" class="form-label">Title</label><span style="color: red">*</span>

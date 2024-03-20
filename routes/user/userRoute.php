@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\user\SubscriptionpackageController;
+use App\Http\Controllers\brand\BrandOfferController;
 use App\Http\Controllers\user\BannerController;
 use App\Http\Controllers\user\BrochureController;
 use Illuminate\Support\Facades\Route;
@@ -103,3 +104,8 @@ Route::post('userTemplate/store', [UserTemplateMasterController::class, 'store']
 Route::get('userTemplate/edit/{id}', [UserTemplateMasterController::class, 'edit'])->name('userTemplate.edit');
 Route::post('userTemplate/update', [UserTemplateMasterController::class, 'update'])->name('userTemplate.update');
 Route::get('userTemplate/delete/{id?}', [UserTemplateMasterController::class, 'destroy'])->name('userTemplate.delete');
+
+
+// my purchase offer list
+
+Route::get('my-purchase-offer', [BrandOfferController::class, 'myPurchaseOffer'])->name('my-purchase-offer');

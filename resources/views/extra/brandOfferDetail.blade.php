@@ -45,94 +45,31 @@
                         <a href="#" class="control_next"> <i class="bi bi-caret-right-fill"></i> </a>
                         <a href="#" class="control_prev"> <i class="bi bi-caret-left-fill"></i> </a>
                         <ul>
-                            <li>
-                                <div class="cards text-start">
-                                    <div class="card-body">
-                                        <h4 class="card-title">30% OFF</h4>
-                                        <p class="card-text pt-1">
-                                            Details about the offer
-                                        </p>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control " style="border: 1px solid #aaa;border-style: dashed; " name="" placeholder="Coupon code">
-                                            <span class="input-group-append">
-                                                <button class="btn btn-blue btn-apply coupon">copy</button>
-                                            </span>
-                                        </div>
-                                        <hr>
-                                        <div class="d-flex justify-content-between ">
-                                            <div class="h6">validity</div>
-                                            <div class="h6">Know more</d>
+                            @foreach ($offerSlider as $slider)
+                                <li>
+                                    <div class="cards text-start">
+                                        <div class="card-body">
+                                            <h4 class="card-title">{{ $slider->title }}</h4>
+                                            <p class="card-text pt-1">
+                                                Details about the offer
+                                            </p>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control " style="border: 1px solid #aaa;border-style: dashed; " name="" placeholder="Coupon code">
+                                                <span class="input-group-append">
+                                                    <button class="btn btn-blue btn-apply coupon">copy</button>
+                                                </span>
+                                            </div>
+                                            <hr>
+                                            <div class="d-flex justify-content-between ">
+                                                <div class="h6">{{ $slider->validity }}</div>
+                                                <div class="h6">Know more</d>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="cards text-start">
-                                    <div class="card-body">
-                                        <h4 class="card-title">30% OFF</h4>
-                                        <p class="card-text pt-1">
-                                            Details about the offer
-                                        </p>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control " style="border: 1px solid #aaa;border-style: dashed; " name="" placeholder="Coupon code">
-                                            <span class="input-group-append">
-                                                <button class="btn btn-blue btn-apply coupon">copy</button>
-                                            </span>
-                                        </div>
-                                        <hr>
-                                        <div class="d-flex justify-content-between ">
-                                            <div class="h6">validity</div>
-                                            <div class="h6">Know more</d>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="cards text-start">
-                                    <div class="card-body">
-                                        <h4 class="card-title">30% OFF</h4>
-                                        <p class="card-text pt-1">
-                                            Details about the offer
-                                        </p>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control " style="border: 1px solid #aaa;border-style: dashed; " name="" placeholder="Coupon code">
-                                            <span class="input-group-append">
-                                                <button class="btn btn-blue btn-apply coupon">copy</button>
-                                            </span>
-                                        </div>
-                                        <hr>
-                                        <div class="d-flex justify-content-between ">
-                                            <div class="h6">validity</div>
-                                            <div class="h6">Know more</d>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="cards text-start">
-                                    <div class="card-body">
-                                        <h4 class="card-title">30% OFF</h4>
-                                        <p class="card-text pt-1">
-                                            Details about the offer
-                                        </p>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control " style="border: 1px solid #aaa;border-style: dashed; " name="" placeholder="Coupon code">
-                                            <span class="input-group-append">
-                                                <button class="btn btn-blue btn-apply coupon">copy</button>
-                                            </span>
-                                        </div>
-                                        <hr>
-                                        <div class="d-flex justify-content-between ">
-                                            <div class="h6">validity</div>
-                                            <div class="h6">Know more</d>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
+                                </li>
+                            @endforeach
+
                         </ul>
                     </div>
 
@@ -142,6 +79,11 @@
                                 <h5 class="card-title">Location</h5>
                                 <p class="card-text pt-2">
                                     <input type="text" class="form-control" placeholder="Search for location">
+                                </p>
+                                <p>
+                                    @foreach ($userCity as $city)
+                                        {{ $city->card->city }}
+                                    @endforeach
                                 </p>
                                 <details>
                                     <summary>Ahmedabad</summary>
@@ -164,39 +106,51 @@
 
                         <span class="fw-bold h4">Top {{ $category->categoryName }} Offers </span>
 
-                        <div class="row pt-2 my-3 px-4">
-                            @foreach ($offers as $brandWithCategory)
-                                <div class="col-md-3">
-                                    <a href="{{ route('brand.detail') }}/{{ $brandWithCategory->brand->id }}/{{ request('categoryId') }}">
-                                        <div class="card ">
-                                            <div class="d-inline-block position-relative">
+                        @if ($offers->count() != 0)
+                            <div class="row pt-2 my-3 px-4">
+                                @foreach ($offers as $brandWithCategory)
+                                    <div class="col-md-4">
+                                        <a href="{{ route('brand.detail') }}/{{ $brandWithCategory->brand->id }}/{{ request('categoryId') }}">
+                                            <div class="card ">
+                                                <div class="d-inline-block position-relative">
 
-                                                <img class="card-img-top" src="{{ asset('cardlogo') }}/{{ $brandWithCategory->brand->card->logo }}" alt="Title" />
+                                                    <img class="card-img-top" src="{{ asset('cardlogo') }}/{{ $brandWithCategory->brand->card->logo }}" style="object-fit:fit ; height: 200px" alt="Title" />
 
-                                                <div class="position-absolute top-0 end-0 p-2">
-                                                    <i class="bi bi-heart"></i>
+                                                    <div class="position-absolute top-0 end-0 p-2">
+                                                        <i class="bi bi-heart"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="card-body">
+                                                    <h4 class="card-title">{{ $brandWithCategory->brand->card->name }}</h4>
+                                                    <p class="card-text">
+                                                        @if ($brandWithCategory->brand->card->city)
+                                                            {{ $brandWithCategory->brand->card->city }}
+                                                        @else
+                                                            -
+                                                        @endif
+                                                    </p>
+                                                    <p class="card-text"></p>
+                                                    {{-- <hr>
+                                                    <div class="">
+                                                        <span class="text-muted">{{ $brandWithCategory->brand->card->about}}</span>
+                                                    </div> --}}
                                                 </div>
                                             </div>
-                                            <div class="card-body">
-                                                <h4 class="card-title">{{ $brandWithCategory->brand->card->name }}</h4>
-                                                <p class="card-text">{{ $brandWithCategory->brand->card->city }}</p>
-                                                <p class="card-text"></p>
-                                                <hr>
-                                                <div class="">
-                                                    <span class="text-success">₹Price</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
+                                        </a>
+                                    </div>
 
-                                {{-- @foreach ($brandWithCategory->offer as $offer)
+                                    {{-- @foreach ($brandWithCategory->offer as $offer)
                                         <div class="col-md-3">
                                             <img src="{{ asset('offerPhoto') }}/{{ $offer->offerPhoto }}" title="special" class="offerPhoto" alt="">
                                         </div>
                                     @endforeach --}}
-                            @endforeach
-                        </div>
+                                @endforeach
+                            </div>
+                        @else
+                            <div class="row pt-5 my-3 text-center  px-4">
+                                <span class="text-muted">No offers available</span>
+                            </div>
+                        @endif
 
                     </div>
                 </div>

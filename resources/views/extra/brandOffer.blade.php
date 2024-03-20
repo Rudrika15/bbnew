@@ -52,19 +52,16 @@
         </div>
         <hr>
 
-        <div class="container">
+        <div class="container pt-3">
             <span class="fw-bold h4">Browse By Category </span>
             <div class="row pt-2 px-4">
-                <div class="col-md-3">
-                    <img src="{{ asset('images/default.jpg') }}" title="spcial" class="offerPhoto" alt="">
-                </div>
-                <div class="col-md-3">
-                    <img src="{{ asset('images/default.jpg') }}" title="spcial" class="offerPhoto" alt="">
-                </div>
-                <div class="col-md-3">
-                    <img src="{{ asset('images/default.jpg') }}" title="spcial" class="offerPhoto" alt="">
-                </div>
-
+                @foreach ($posters as $poster)
+                    <div class="col-md-3">
+                        <a href="{{ route('brand.offer') }}/{{ $poster->id }}">
+                            <img src="{{ asset('brandCategoryPoster') }}/{{ $poster->poster }}" title="{{ $poster->categoryName }}" class="offerPhoto" alt="">
+                        </a>
+                    </div>
+                @endforeach
             </div>
         </div>
 
@@ -77,19 +74,19 @@
 
             @php
                 // Define an array of border classes
-                $borderClasses = ['border-primary', 'border-secondary', 'border-dark', 'border-success', 'border-danger', 'border-warning', 'border-info'];
+                $borderClasses = ['border-primary', 'border-info'];
             @endphp
 
-            <div class="container py-3">
-                <section class="customer-logos slider">
+            <div class="container py-4">
+                <section class="customer-logos slider row">
                     @foreach ($brandLogos as $index => $logo)
                         @php
                             $borderClass = $borderClasses[$index % count($borderClasses)];
                         @endphp
                         @if ($logo->card->logo)
-                            <div class="slide border {{ $borderClass }} border-3"><img src="{{ asset('cardlogo') }}/{{ $logo->card->logo }}" alt="" /></div>
-                        @else
-                            <div class="slide border {{ $borderClass }} border-3"><img src="{{ asset('images/default.jpg') }}" alt="" /></div>
+                            <div class="slide border {{ $borderClass }} border-3 col-lg-12 col-sm-12"><img src="{{ asset('cardlogo') }}/{{ $logo->card->logo }}" alt="" /></div>
+                            {{-- @else
+                            <div class="slide border {{ $borderClass }} border-3"><img src="{{ asset('images/default.jpg') }}" alt="" /></div> --}}
                         @endif
                     @endforeach
                 </section>
@@ -97,25 +94,25 @@
         </div>
 
 
-        <div class="container pt-3">
-            <span class="fw-bold h4">Everything Buffet! </span>
+        <div class="container pt-4">
+            <span class="fw-bold h4">Everything {{ $cat->categoryName }} !!</span>
             <div class="row pt-2 px-4">
-                <div class="col-md-3">
-                    <img src="{{ asset('images/default.jpg') }}" title="spcial" class="offerPhoto" alt="">
-                </div>
-                <div class="col-md-3">
-                    <img src="{{ asset('images/default.jpg') }}" title="spcial" class="offerPhoto" alt="">
-                </div>
-                <div class="col-md-3">
-                    <img src="{{ asset('images/default.jpg') }}" title="spcial" class="offerPhoto" alt="">
-                </div>
-                <div class="col-md-3">
-                    <img src="{{ asset('images/default.jpg') }}" title="spcial" class="offerPhoto" alt="">
-                </div>
+                @foreach ($posters as $brand)
+                    @foreach ($brand->brand as $card)
+                        @foreach ($card->brand->card->cardPortfolio as $portfolio)
+                            <div class="col-md-3">
+                                {{-- <a href="{{ route('brand.detail') }}/{{ $brand->id }}"> --}}
+                                <img src="{{ asset('cardimage') }}/{{ $portfolio->image }}" title="{{ $portfolio->title }}" class="offerPhoto" alt="">
+                                {{-- <img src="{{ asset('images/default.jpg') }}" title="spcial" class="offerPhoto" alt=""> --}}
+                                {{-- </a> --}}
+                            </div>
+                        @endforeach
+                    @endforeach
+                @endforeach
+
 
             </div>
         </div>
-
 
 
         <div class="container pt-4">
@@ -132,7 +129,13 @@
                     </div>
                 </div>
                 <ul id="cards">
-                    <li id="box1" class="list">
+
+                    @foreach ($sliderPosters as $sliderPoster)
+                        <li id="box1" class="list">
+                            <img src="{{ asset('brandCategoryPoster/' . $sliderPoster->poster) }}" class="h-100" style="object-fit: cover; width: 90%; border-radius: 10px" alt="">
+                        </li>
+                    @endforeach
+                    {{-- <li id="box2" class="list">
                         <img src="{{ asset('images/slider1.webp') }}" class="h-100" alt="">
                     </li>
                     <li id="box2" class="list">
@@ -143,129 +146,58 @@
                     </li>
                     <li id="box4" class="list">
                         <img src="{{ asset('images/slider4.webp') }}" class="h-100" alt="">
-                    </li>
+                    </li> --}}
                 </ul>
             </div>
         </div>
 
         <div class="container pt-3">
-            <span class="fw-bold h4">New On Nearbuy! </span>
+            <span class="fw-bold h4">New On BrandBeans! </span>
 
             <div class="row p-3 ps-5">
-                <div class="col-md-3">
-                    <div class="card ">
-                        <div class="d-inline-block position-relative">
-                            <img class="card-img-top" src="{{ asset('images/default.jpg') }}" alt="Title" />
-                            <div class="position-absolute top-0 end-0 p-2">
-                                <i class="bi bi-heart"></i>
+                {{-- {{ $newBrands }} --}}
+                @foreach ($newBrands as $brand)
+                    <div class="col-md-3">
+                        <div class="card ">
+                            <div class="d-inline-block position-relative">
+                                <img class="card-img-top" src="{{ asset('cardlogo') }}/{{ $brand->card->logo }}" style="object-fit: fit; height: 200px" alt="Title" />
+                                <div class="position-absolute top-0 end-0 p-2">
+                                    <i class="bi bi-heart"></i>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-title">{{ $brand->name }}</h4>
+                                <p class="card-text">
+                                    @if ($brand->card->city)
+                                        {{ $brand->card->city }}
+                                    @else
+                                        -
+                                    @endif
+                                </p>
+                                <hr>
+                                <div class="">
+                                    <small class="text-muted fs-6">75 Bought</small>
+                                </div>
                             </div>
                         </div>
-                        <div class="card-body">
-                            <h4 class="card-title">Name</h4>
-                            <p class="card-text">location</p>
-                            <p class="card-text">offer name</p>
-                            <hr>
-                            <div class="">
-                                <span class="text-success">₹Price</span>
-                            </div>
-                        </div>
-                    </div>
 
-                </div>
-                <div class="col-md-3">
-                    <div class="card ">
-                        <div class="d-inline-block position-relative">
-                            <img class="card-img-top" src="{{ asset('images/default.jpg') }}" alt="Title" />
-                            <div class="position-absolute top-0 end-0 p-2">
-                                <i class="bi bi-heart"></i>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <h4 class="card-title">Name</h4>
-                            <p class="card-text">location</p>
-                            <p class="card-text">offer name</p>
-                            <hr>
-                            <div class="">
-                                <span class="text-success">₹Price</span>
-                            </div>
-                        </div>
                     </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card ">
-                        <div class="d-inline-block position-relative">
-                            <img class="card-img-top" src="{{ asset('images/default.jpg') }}" alt="Title" />
-                            <div class="position-absolute top-0 end-0 p-2">
-                                <i class="bi bi-heart"></i>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <h4 class="card-title">Name</h4>
-                            <p class="card-text">location</p>
-                            <p class="card-text">offer name</p>
-                            <hr>
-                            <div class="">
-                                <span class="text-success">₹Price</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card ">
-                        <div class="d-inline-block position-relative">
-                            <img class="card-img-top" src="{{ asset('images/default.jpg') }}" alt="Title" />
-                            <div class="position-absolute top-0 end-0 p-2">
-                                <i class="bi bi-heart"></i>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <h4 class="card-title">Name</h4>
-                            <p class="card-text">location</p>
-                            <p class="card-text">offer name</p>
-                            <hr>
-                            <div class="">
-                                <span class="text-success">₹Price</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
+
             </div>
         </div>
 
-        <div class="container pt-3">
-            <span class="fw-bold h4">Next Thing On Your Mind </span>
+        <div class="container pt-4">
+            <span class="fw-bold h4">Next Thing On Your Mind 💅🍔💆‍♀️✂️</span>
 
             <div class="row text-center pt-2">
-                <div class="col-md-2">
-                    <img src="{{ asset('images/default.jpg') }}" class="img-fluid" alt="">
-                    <p class="fw-bold">title</p>
-                    <p>₹price</p>
-                </div>
-                <div class="col-md-2">
-                    <img src="{{ asset('images/default.jpg') }}" class="img-fluid" alt="">
-                    <p class="fw-bold">title</p>
-                    <p>₹price</p>
-                </div>
-                <div class="col-md-2">
-                    <img src="{{ asset('images/default.jpg') }}" class="img-fluid" alt="">
-                    <p class="fw-bold">title</p>
-                    <p>₹price</p>
-                </div>
-                <div class="col-md-2">
-                    <img src="{{ asset('images/default.jpg') }}" class="img-fluid" alt="">
-                    <p class="fw-bold">title</p>
-                    <p>₹price</p>
-                </div>
-                <div class="col-md-2">
-                    <img src="{{ asset('images/default.jpg') }}" class="img-fluid" alt="">
-                    <p class="fw-bold">title</p>
-                    <p>₹price</p>
-                </div>
-                <div class="col-md-2">
-                    <img src="{{ asset('images/default.jpg') }}" class="img-fluid" alt="">
-                    <p class="fw-bold">title</p>
-                    <p>₹price</p>
-                </div>
+                @foreach ($offers as $offer)
+                    <div class="col-md-2">
+                        <img src="{{ asset('offerPhoto') }}/{{ $offer->offerPhoto }}" class="" style="object-fit: contain; width: 150px; height: 150px" alt="">
+                        <p class="fw-bold">{{ $offer->title }}</p>
+                        <p>₹{{ $offer->offerPrice }}</p>
+                    </div>
+                @endforeach
             </div>
         </div>
 
@@ -273,87 +205,29 @@
             <div class="slide-container swiper ps-5 ms-5">
                 <div class="slide-content">
                     <div class="card-wrapper swiper-wrapper">
-                        <div class="card swiper-slide">
-                            <div class="image-content">
-                                <img src="{{ asset('images/default.jpg') }}" alt="" class="card-img">
+                        @foreach ($newBrands as $brand)
+                            <div class="card swiper-slide">
+                                <div class="image-content">
+                                    <img src="{{ asset('cardlogo') }}/{{ $brand->card->logo }}" alt="" style="object-fit: fit; height: 200px" class="card-img">
 
-                            </div>
-                            <div class="card-content">
-                                <h2 class="name">Name</h2>
-                                <p>location</p>
-                                <p>offer detail</p>
-                                <hr>
-                                <div class="d-flex justify-content-between">
-                                    <p>₹Price</p>
-                                    <p>dis</p>
+                                </div>
+                                <div class="card-content">
+                                    <h2 class="name">{{ $brand->name }}</h2>
+                                    <p>
+                                        @if ($brand->card->city)
+                                            {{ $brand->card->city }}
+                                        @else
+                                            -
+                                        @endif
+                                    </p>
+                                    <hr>
+                                    <div class="d-flex justify-content-between">
+                                        <p>₹Price</p>
+                                        <p>dis</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="card swiper-slide">
-                            <div class="image-content">
-                                <img src="{{ asset('images/default.jpg') }}" alt="" class="card-img">
-
-                            </div>
-                            <div class="card-content">
-                                <h2 class="name">Name</h2>
-                                <p>location</p>
-                                <p>offer detail</p>
-                                <hr>
-                                <div class="d-flex justify-content-between">
-                                    <p>₹Price</p>
-                                    <p>dis</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card swiper-slide">
-                            <div class="image-content">
-                                <img src="{{ asset('images/default.jpg') }}" alt="" class="card-img">
-
-                            </div>
-                            <div class="card-content">
-                                <h2 class="name">Name</h2>
-                                <p>location</p>
-                                <p>offer detail</p>
-                                <hr>
-                                <div class="d-flex justify-content-between">
-                                    <p>₹Price</p>
-                                    <p>dis</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card swiper-slide">
-                            <div class="image-content">
-                                <img src="{{ asset('images/default.jpg') }}" alt="" class="card-img">
-
-                            </div>
-                            <div class="card-content">
-                                <h2 class="name">Name</h2>
-                                <p>location</p>
-                                <p>offer detail</p>
-                                <hr>
-                                <div class="d-flex justify-content-between">
-                                    <p>₹Price</p>
-                                    <p>dis</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card swiper-slide">
-                            <div class="image-content">
-                                <img src="{{ asset('images/default.jpg') }}" alt="" class="card-img">
-
-                            </div>
-                            <div class="card-content">
-                                <h2 class="name">Name</h2>
-                                <p>location</p>
-                                <p>offer detail</p>
-                                <hr>
-                                <div class="d-flex justify-content-between">
-                                    <p>₹Price</p>
-                                    <p>dis</p>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
 
                     </div>
                 </div>
@@ -400,38 +274,16 @@
             <div class="row">
                 <div class="MultiCarousel" data-items="1,2,3,4" data-slide="3" id="MultiCarousel" data-interval="3000">
                     <div class="MultiCarousel-inner">
-                        <div class="item">
-                            <img src="{{ asset('images/default.jpg') }}" alt="">
-
-                        </div>
-                        <div class="item">
-                            <img src="{{ asset('images/default.jpg') }}" alt="">
-
-                        </div>
-                        <div class="item">
-                            <img src="{{ asset('images/default.jpg') }}" alt="">
-
-                        </div>
-                        <div class="item">
-                            <img src="{{ asset('images/default.jpg') }}" alt="">
-
-                        </div>
-                        <div class="item">
-                            <img src="{{ asset('images/default.jpg') }}" alt="">
-
-                        </div>
-                        <div class="item">
-                            <img src="{{ asset('images/default.jpg') }}" alt="">
-
-                        </div>
-                        <div class="item">
-                            <img src="{{ asset('images/default.jpg') }}" alt="">
-
-                        </div>
-                        <div class="item">
-                            <img src="{{ asset('images/default.jpg') }}" alt="">
-
-                        </div>
+                        @foreach ($randomBrandPortfolio as $images)
+                            @if ($images->card && $images->card->cardPortfolio)
+                                @foreach ($images->card->cardPortfolio as $portfolio)
+                                    <div class="item">
+                                        <img src="{{ asset('cardimage') }}/{{ $portfolio->image }}" style="height: 250px; width: 280px" alt="">
+                                        {{-- <img src="{{ asset('images/default.jpg') }}" alt=""> --}}
+                                    </div>
+                                @endforeach
+                            @endif
+                        @endforeach
 
                     </div>
                     <button class="btn btn-primary leftLst">
@@ -443,7 +295,7 @@
         </div>
 
 
-        <div class="container pt-3">
+        {{-- <div class="container pt-3">
             <span class="fw-bold h4">Popular Salon Services✂️ </span>
 
             <div class="row text-center pt-2">
@@ -478,7 +330,7 @@
                     <p>₹price</p>
                 </div>
             </div>
-        </div>
+        </div> --}}
         <div class="container pt-3">
             <span class="fw-bold h4">Promo Codes For More Savings </span>
 
@@ -486,7 +338,7 @@
                 <div class="couponslide-content swiper">
                     <div class="slide-content">
                         <div class="card-wrapper swiper-wrapper">
-                            <div class="card bg-info swiper-slide" style="width: 500rem;">
+                            <div class="card  swiper-slide" style="width: 500rem;">
                                 <div class="image-content">
                                     <img src="{{ asset('images/coupon.webp') }}" alt="" class="card-img">
                                 </div>

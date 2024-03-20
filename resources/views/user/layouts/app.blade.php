@@ -33,4 +33,7 @@
     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{{ route('pricing.index') }}">
         <i class="bi bi-piggy-bank-fill"></i> Pricing
     </a>
+    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{{ route('my-purchase-offer') }}">
+        <i class="bi bi-cart4"></i> Purchase Offer
+    </a>
 </div>

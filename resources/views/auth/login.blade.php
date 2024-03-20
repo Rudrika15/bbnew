@@ -18,45 +18,78 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 </head>
 
-<body>
-    <div class="d-flex justify-content-center pt-5" id="wrapper">
-        <!-- Sidebar-->
-        <div class="border p-5">
-            <div class="text-info text-center pb-2 fw-bold">Brand beans</div>
-            <form action="{{ route('login') }}" method="post">
-                @csrf
-                <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Email address</label>
-                    <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-                    @error('email')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                </div>
-                <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">Password</label>
-                    <input type="password" id="password" name="password" class="form-control" id="exampleInputPassword1">
-                    @error('password')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                </div>
-                <div class="mb-3  d-flex justify-content-between">
-                    <div class="">
-                        <input type="checkbox" id="checkbox"><small class="text-primary">Show password</small>
+<style>
+    body {
+        /* background-image: url('path/to/your/image.png'); */
+        /* If you want to use a background image, replace 'path/to/your/image.png' with the actual path to your image */
+        /* Or, if you want to use a linear gradient background color */
+        /* background: linear-gradient(#012e6f, #00b9f0); */
+        /* Adjust the colors as needed */
+        /* You can also specify the direction of the gradient if desired */
+        /* background: linear-gradient(90deg, red, yellow); */
+    }
+</style>
+
+<body class="bg-light">
+
+
+    {{-- <style>
+        body {
+            /* background-image: url({{ asset('images/bg.png') }}); */
+            /* background-color: linear-gradient(90deg, #012e6f 0%, #00b9f0 100%); */
+            background-color: linear-gradient(red, yellow);
+        }
+    </style> --}}
+
+
+    <div class="container bg-white containerImage border shadow rounded d-flex justify-content-center h-100 mt-5 mb-4" style="width: 30%">
+        <div class="row ">
+
+            <div class="col-md-12">
+                <div class="d-flex justify-content-center pt-3">
+                    <!-- Sidebar-->
+                    <div class=" p-5 ">
+                        <div class="text-info text-center pb-4 fw-bold"><img src="{{ asset('images/logo.png') }}" class="w-75" alt=""></div>
+                        <form action="{{ route('login') }}" method="post">
+                            @csrf
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Email address</label>
+                                <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                                @error('email')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+
+
+                            <div class="mb-3">
+                                <label for="exampleInputPassword1" class="form-label">Password</label>
+                                <div class="input-group">
+                                    <input type="password" id="password" name="password" class="form-control" id="exampleInputPassword1">
+                                    <button type="button" class="btn btn-outline-secondary" id="togglePassword">
+                                        <i class="bi bi-eye-slash" id="eyeIcon"></i> <!-- Eye slash icon represents hidden password by default -->
+                                    </button>
+                                </div>
+                                @error('password')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+
+                            <div class="d-flex justify-content-between">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+
+                                @if (Route::has('password.request'))
+                                    <div class="pt-3"><a href="{{ route('password.request') }}" class="a-link"><i class="fa fa-unlock-alt"></i>Forgot password?</a></div>
+                                @endif
+                            </div>
+                        </form>
+                        <hr>
+                        <div class="pt-2  d-flex justify-content-between">
+                            <a href="{{ route('otp.login') }}" class="a-link"><i class="fa fa-user-plus"></i>Login with OTP</a>
+                            <a href="{{ route('register') }}" class="a-link"><i class="fa fa-user-plus"></i>Register</a>
+                        </div>
                     </div>
-
-                    @if (Route::has('password.request'))
-                        <div class="text-end"><a href="{{ route('password.request') }}" class="a-link"><i class="fa fa-unlock-alt"></i>Forgot password?</a></div>
-                    @endif
                 </div>
-
-                <div class="d-flex justify-content-between">
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                    <a href="{{ route('register') }}" class="a-link"><i class="fa fa-user-plus"></i>Register</a>
-                </div>
-            </form>
-            <div class="pt-4">
-                <a href="{{ route('otp.login') }}" class="a-link"><i class="fa fa-user-plus"></i>Login with OTP</a>
             </div>
         </div>
     </div>
@@ -68,10 +101,18 @@
 
     <script type='text/javascript'>
         $(document).ready(function() {
-            $('#checkbox').click(function() {
-                // alert($(this).is(':checked'));
-                $(this).is(':checked') ? $('#password').attr('type', 'text') : $('#password').attr('type',
-                    'password');
+            $('#togglePassword').click(function() {
+                var passwordField = $('#password');
+                var passwordFieldType = passwordField.attr('type');
+
+                // Toggle password visibility and change eye icon accordingly
+                if (passwordFieldType === 'password') {
+                    passwordField.attr('type', 'text');
+                    $('#eyeIcon').removeClass('bi-eye-slash').addClass('bi-eye');
+                } else {
+                    passwordField.attr('type', 'password');
+                    $('#eyeIcon').removeClass('bi-eye').addClass('bi-eye-slash');
+                }
             });
         });
     </script>

@@ -90,6 +90,9 @@
     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{{ route('typedetail.index') }}">
         <i class="bi bi-chat-right-dots"></i> Notification Type Detail
     </a>
+    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{{ route('offerSlider.index') }}">
+        <i class="bi bi-chat-right-dots"></i> Offer Slider
+    </a>
 
     {{-- report --}}
     <span class=" fw-bold text-center text-uppercase sidebar-heading-small"> Report </span>

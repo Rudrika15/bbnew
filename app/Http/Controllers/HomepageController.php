@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\QrCodeMail;
 use App\Models\BrandCategory;
 use App\Models\BrandOffer;
 use App\Models\BrandPoints;
@@ -11,12 +12,16 @@ use App\Models\CategoryInfluencer;
 use App\Models\InfluencerProfile;
 use App\Models\Media;
 use App\Models\Mymedia;
+use App\Models\MyOfferQrCodes;
 use App\Models\Story;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Illuminate\Support\Str;
+
 
 class HomepageController extends Controller
 {
@@ -137,7 +142,24 @@ class HomepageController extends Controller
         $brandLogos = User::whereHas('roles', function ($q) {
             $q->where('name', 'Brand');
         })->with('card')->get();
-        return view('extra.brandOffer', compact('offerCategory', 'brandLogos'));
+        $posters = BrandCategory::inRandomOrder()->take(3)->get();
+        $sliderPosters = BrandCategory::all();
+
+        $cat = BrandCategory::inRandomOrder()->first();
+        $posters2 = BrandCategory::inRandomOrder()->where('id', $cat->id)->with('brand.brand.card.cardPortfolio')->get();
+
+        $brands = BrandWithCategory::with('brand.card.cardPortfolio')->get();
+
+        $newBrands = User::whereHas('roles', function ($q) {
+            $q->where('name', 'Brand');
+        })->with('offer')->with('card')->take(4)->get();
+
+        $offers = BrandOffer::inRandomOrder()->take(6)->get();
+
+        $randomBrandPortfolio = User::whereHas('roles', function ($q) {
+            $q->where('name', 'Brand');
+        })->with('card.cardPortfolio')->get();
+        return view('extra.brandOffer', compact('offerCategory', 'brandLogos', 'posters', 'sliderPosters', 'brands', 'posters2', 'cat', 'newBrands', 'offers', 'randomBrandPortfolio'));
     }
 
     public function getOffer($categoryId)
@@ -148,7 +170,12 @@ class HomepageController extends Controller
         $category = BrandCategory::find($categoryId);
         $offers = BrandWithCategory::where('brandcategoryId', $categoryId)
             ->with('brand.card.cardPortfolio')->with('offer')->get();
-        return view('extra.brandOfferDetail', \compact('offers', 'category'));
+        $offerSlider = BrandOffer::all();
+
+        $userCity = User::whereHas('roles', function ($q) {
+            $q->where('name', 'Brand');
+        })->whereHas('card')->with('card')->get();
+        return view('extra.brandOfferDetail', \compact('offers', 'category', 'userCity', 'offerSlider'));
     }
 
     public function brandDetail($id, $category)
@@ -156,14 +183,37 @@ class HomepageController extends Controller
         $brandCategory = BrandCategory::find($category);
         $brand = User::where('id', $id)->with('card.cardPortfolio')->with('brand')->first();
         $offers = BrandOffer::where('userId', $id)->get();
-        $recommendedOffers = BrandOffer::where('userId', $id)->take(3)->get();
-        return view('extra.brandDetail', \compact('brand', 'brandCategory', 'offers'));
+        $recommendedOffers = BrandOffer::where('userId', $id)->take(5)->get();
+        return view('extra.brandDetail', \compact('brand', 'brandCategory', 'offers', 'recommendedOffers'));
     }
 
     public function qrCode($offerId)
     {
-        $offer = BrandOffer::find($offerId);
-        $offerData = json_encode($offer);
-        return QrCode::generate($offerData);
+        try {
+            $offer = BrandOffer::findOrFail($offerId);
+
+            $uuid = Str::uuid();
+
+            $qr = new MyOfferQrCodes();
+            $qr->buyerId = Auth::user()->id;
+            $qr->offerId = $offerId;
+            $qr->uuid = $uuid;
+            $qr->status = "Active";
+            $qr->validity = $offer->validity;
+            $qr->save();
+
+            // Retrieve QR code file path
+            // $qrCodeFilePath = public_path('offerQrCodes') . '/' . $qrFileName;
+
+            // return $qrCodeFilePath;
+            // Send email with QR code as an attachment
+            // $email = "rudrikadave20226@gmail.com";
+            $email = Auth::user()->email;
+            Mail::to($email)->send(new QrCodeMail($offer, $uuid));
+
+            return "qrCode generated and sent to the mail";
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
     }
 }

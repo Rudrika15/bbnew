@@ -116,4 +116,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(BrandOffer::class, 'userId', 'id');
     }
+
+    function myOffers()
+    {
+        return $this->hasMany(MyOfferQrCodes::class, 'buyerId', 'id');
+    }
 }

@@ -277,7 +277,6 @@ Route::get('/influencer-steps/{campaignId?}/{influencerId?}', [ApiController::cl
 Route::get('/brandPackage', [ApiController::class, 'brandPackage']);
 
 
-
 // brand campaign appliers
 
 Route::get('/brand-campaign-appliers/{userId?}', [ApiController::class, 'brandCampaignAppliers']);
@@ -307,6 +306,7 @@ Route::post('/brand-campaign-applier-content-rejected/{id?}', [ApiController::cl
 
 // ---------- Influencer
 Route::get('/influencerList', [ApiController::class, 'influencerList']);
+Route::get('influencers', [ApiController::class, 'allInfluencer']);
 Route::get('/influencerListById/{id?}', [ApiController::class, 'influencerListById']);
 
 Route::get('/influencer-category', [ApiController::class, 'influencerCategoryList']);
@@ -376,3 +376,22 @@ Route::get('/brand-offer-list/{id?}', [ApiController::class, 'brandOfferList']);
 Route::post('/brand-offer-store', [ApiController::class, 'brandOfferCreate']);
 Route::post('/brand-offer-edit/{id?}', [ApiController::class, 'brandOfferUpdate']);
 Route::get('/brand-offer-delete/{id?}', [ApiController::class, 'brandOfferDelete']);
+
+
+
+Route::get('/brand-category-list', [ApiController::class, 'offerCategoryList']);
+Route::get('offerCategoryBrand/{categoryId?}', [ApiController::class, 'offerCategoryBrand']);
+Route::get('purchesedOfferList/{userId?}', [ApiController::class, 'purchesedOfferList']);
+
+// purchesedOffer
+Route::post('/purchaseOffer', [ApiController::class, 'purchaseBrandOffer']);
+Route::get('/offerSlider', [ApiController::class, 'offerSlider']);
+
+// redeem OFFER  
+Route::post('/redeemQrCode', [ApiController::class, 'redeemQrCode']);
+
+
+// offer details
+Route::get('/offerDetail/{offerId?}', [ApiController::class, 'offerDetail']);
+Route::get('/recommendOffers', [ApiController::class, 'recommendOffers']);
+Route::get('/offerBuyerList/{brandId?}', [ApiController::class, 'offerBuyerList']);

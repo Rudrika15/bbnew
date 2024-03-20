@@ -211,7 +211,7 @@
                                     <div class="row">
                                         <div class="col-md-2"><label>About:</label></div>
                                         <div class="col-md-10">
-                                            <textarea style="width:95%" class=" form-control" rows="5" placeholder="Enter About" type="text" id="about" name="about" value="">{{ $details->about }}</textarea>
+                                            <textarea style="width:95%" class="about form-control" rows="5" placeholder="Enter About" type="text" id="about" name="about" value="">{{ $details->about }}</textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -697,6 +697,10 @@
         });
     });
 </script>
+
+
+
+
 
 @role('Influencer')
     <script>

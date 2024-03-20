@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\OtpController;
 use App\Http\Controllers\HomepageController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -60,3 +61,19 @@ Route::get('/contact', [HomepageController::class, 'contact'])->name('contact');
 Route::get('/privacy', [HomepageController::class, 'privacy'])->name('privacy');
 Route::get('/refund', [HomepageController::class, 'refund'])->name('refund');
 Route::get('/term', [HomepageController::class, 'term'])->name('term');
+
+
+// offer payment
+Route::post('/store-current-url', function (Request $request) {
+    $request->session()->put('current_url', $request->url);
+    return response()->json(['message' => 'Current URL stored successfully']);
+});
+
+Route::post('/set-login-user-session', function (Request $request) {
+    // Retrieve the value to set the loginUser session variable
+    $loginUser = $request->input('loginUser');
+
+    session(['loginUser' => $loginUser]);
+
+    return response()->json(['message' => 'loginUser session variable set successfully']);
+});
