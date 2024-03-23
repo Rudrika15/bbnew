@@ -4521,20 +4521,21 @@ class ApiController extends Controller
     {
         $offers = BrandOffer::all();
 
-        // Example: Filtering offers based on some condition
+        // // Example: Filtering offers based on some condition
         $recommendedOffers = [];
         foreach ($offers as $offer) {
             $offerbuy = MyOfferQrCodes::where('offerId', $offer->id)->count();
 
             // Example condition: Recommend offers with at least 10 purchases
-            if ($offerbuy >= 5) {
-                $recommendedOffers[] = $offer;
-            }
+            // if ($offerbuy >= 5) {
+            //     $recommendedOffers[] = $offer;
+            // }
         }
 
         $response = [
             'status' => 200,
-            'data' => $recommendedOffers
+            // 'data' => $recommendedOffers
+            'data' => $offers
         ];
         // Return the recommended offers as JSON response
         return response()->json($response, 200);
