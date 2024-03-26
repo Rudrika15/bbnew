@@ -14,6 +14,9 @@
     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{{ route('users.assignRole') }}">
         <i class="bi bi-person-fill-add"></i> Assign Role
     </a>
+    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{{ route('admin.brand.list') }}">
+        <i class="bi bi-people-fill"></i> Add Brand
+    </a>
 
 
     {{-- content --}}
@@ -99,6 +102,7 @@
     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{{ route('adminsubscription.index') }}">
         <i class="bi bi-people-fill"></i> Our Users
     </a>
+
     {{-- <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#">
         <i class="bi bi-list-check"></i> Subscription Package
     </a> --}}

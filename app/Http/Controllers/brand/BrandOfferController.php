@@ -45,7 +45,7 @@ class BrandOfferController extends Controller
         $offer->validity = $request->validity;
         $offer->termsAndConditions = $request->termsAndConditions;
         $offer->save();
-        return redirect()->route('brand.offers')->with('success', 'Offer added successfully');
+        return redirect()->back()->with('success', 'Offer added successfully');
     }
 
     public function edit($id)

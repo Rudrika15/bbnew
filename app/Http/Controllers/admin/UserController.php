@@ -4,16 +4,19 @@ namespace App\Http\Controllers\admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\BrandCategory;
+use App\Models\BrandOffer;
 use App\Models\CardsModels;
+use App\Models\Category;
 use App\Models\InfluencerProfile;
 use App\Models\Link;
 use App\Models\Payment;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
 use DB;
-use Hash;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use League\Csv\Writer;
 
 use function Ramsey\Uuid\v1;
@@ -473,5 +476,71 @@ class UserController extends Controller
         //     'Content-Type' => 'text/csv',
         //     'Content-Disposition' => "attachment; filename=\"$filename\"",
         // ]);
+    }
+
+    public function brandList()
+    {
+        $users = User::whereHas('roles', function ($query) {
+            $query->where('name', 'Brand');
+        })->get();
+
+        return view('admin.brand.index', compact('users'));
+    }
+
+    public function brandOfferAdd($id)
+    {
+        $user = User::find($id);
+        $offers = BrandOffer::where('userId', $id)->get();
+        return view('admin.brand.createOffer', compact('user', 'offers'));
+    }
+    public function addBrand()
+    {
+        $brandCategories = BrandCategory::all();
+        $businessCategory = Category::all();
+        return view('admin.brand.create', compact('brandCategories', 'businessCategory'));
+    }
+    public function addBrandCode(Request $request)
+    {
+
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'mobileno' => 'required',
+            'password' => 'required',
+            'brandCategoryId' => 'required',
+            'categoryId' => 'required',
+        ]);
+
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->username = $request->name;
+        $user->mobileno = $request->mobileno;
+        $user->password = Hash::make($request->password);
+        $user->package = "FREE";
+        $user->status = "Active";
+        $user->save();
+
+        $user->assignRole('Brand');
+
+        $card = new CardsModels();
+        $card->user_id = $user->id;
+        $card->category = $request->categoryId;
+        $card->save();
+
+        $payment = new Payment();
+        $payment->card_id = $card->id;
+        $payment->save();
+
+        $links = new Link();
+        $links->card_id  = $card->id;
+        $links->phone1  = $request->mobileno;
+        $links->save();
+
+
+
+
+
+        return redirect()->back()->with('success', 'Brand created successfully.');
     }
 }

@@ -255,3 +255,9 @@ Route::post('/offerSlider/store', [OfferSliderController::class, 'store'])->name
 // Route::get('/offerSlider/edit/{id?}', [OfferSliderController::class, 'edit'])->name('offerSlider.edit');
 // Route::post('/offerSlider/update', [OfferSliderController::class, 'update'])->name('offerSlider.update');
 Route::get('/offerSlider/delete/{id?}', [OfferSliderController::class, 'destroy'])->name('offerSlider.delete');
+
+
+Route::get('/admin/brand/index', [UserController::class, 'brandList'])->name('admin.brand.list');
+Route::get('/admin/brand/offer/create/{id?}', [UserController::class, 'brandOfferAdd'])->name('admin.brand.offer.create');
+Route::get('/admin/brand/create', [UserController::class, 'addBrand'])->name('admin.brand.create');
+Route::post('/admin/brand/store', [UserController::class, 'addBrandCode'])->name('admin.brand.store');
